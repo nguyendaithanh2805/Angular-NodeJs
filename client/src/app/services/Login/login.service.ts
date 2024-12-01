@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
-import { ApiResponse } from '../../../common/ApiResponse';
-import { User } from '../../../models/User';
+import { ApiResponse } from '../../common/ApiResponse';
+import { User } from '../../models/User';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../Auth/authentication.service';
 import { Router } from '@angular/router';
-import { Console, error } from 'console';
 @Injectable({
   providedIn: 'root'
 })

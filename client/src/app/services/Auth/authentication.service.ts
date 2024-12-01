@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
+// https://jscrambler.com/blog/working-with-angular-local-storage
 export class AuthenticationService {
   private readonly TOKEN_KEY = 'AuthToken';
 
