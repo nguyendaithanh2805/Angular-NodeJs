@@ -43,7 +43,7 @@ class UserController {
         }
     }
 
-    async deleteUserAsync(req, res) {
+    async deleteUser(req, res) {
         try {
             await userService.deleteUserAsync(req.params.id);
             res.status(204).send('User deleted successfully.');
@@ -52,3 +52,4 @@ class UserController {
         }
     }
 }
+module.exports = new UserController();
