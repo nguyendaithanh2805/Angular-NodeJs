@@ -12,8 +12,8 @@ class LoginController {
                 {
                     user: {
                         userId: result.user.userId,
-                        username: result.user.username,
-                        roleId: result.user.roleId
+                        roleId: result.user.roleId,
+                        username: result.user.username
                     },
                     token: result.token
                 }
