@@ -22,9 +22,9 @@ class UserRepository {
         return result.insertId;
     }
 
-    async updateAsync(user) {
-        await db.query('UPDATE tbl_user SET roleId = ?, username = ?, password = ? WHERE userId = ?', [user.roleId, user.username, user.password, user.userId]);
-        console.log(`Updated user successfully with userId : [${user.userId}]`);
+    async updateAsync(id ,user) {
+        await db.query('UPDATE tbl_user SET roleId = ?, username = ?, password = ? WHERE userId = ?', [user.roleId, user.username, user.password, id]);
+        console.log(`Updated user successfully with userId : [${id}]`);
     }
 
     async deleteAsync(user) {

@@ -1,34 +1,39 @@
 const userRepository = require('../repositories/UserRepository');
 
 class UserService {
-    async getAllUser(page, limit) {
+    async getAllUsersAsync(page, limit) {
         const offset = (page - 1) * limit;
         await userRepository.findAllAsync(limit, offset);
     }
 
-    async getTotalUsers() {
+    async getTotalUsersAsync() {
         return await userRepository.findTotalUserAsync();
     }
 
-    async getUserById(id) {
+    async getUserByIdAsync(id) {
         const user = await userRepository.findByIdAsync(id);
         if (user === null)
-            throw new Error(`User with ${id} not found`);
+            throw new Error(`User with ${id} not found.`);
         return user;
     }
 
-    async addUser(user) {
+    async addUserAsync(user) {
+        const userRepo = await this.getUserByIdAsync(id);
+        if (user.username === userRepo.username)
+            throw new Error(`User with username [${user.username}] already exists!`);
+
         const newUser = await this.prepareUser(user);
         return await userRepository.addAsync(newUser);
     }
 
-    async updateUser(id) {
-        const user = await userRepository.findByIdAsync(id);
-        await userRepository.updateAsync(user);
+    async updateUserAsync(id, user) {
+        const existingUser = await this.getUserByIdAsync(id);
+        existingUser = await this.prepareUser(user);
+        await userRepository.updateAsync(id, updateUser);
     }
 
-    async deleteUser(id) {
-        const user = await userRepository.findByIdAsync(id);
+    async deleteUserAsync(id) {
+        const user = await this.getUserByIdAsync(id);
         await userRepository.deleteAsync(user);
     }
 
