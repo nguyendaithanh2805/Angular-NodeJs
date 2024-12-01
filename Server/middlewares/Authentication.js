@@ -1,7 +1,7 @@
 const config = require('../config/jwt');
 const jwt = require('jsonwebtoken');
 
-class AuthenticationMiddleware {
+class Authentication {
     async getTokenFromHeader(req) {
         const token = req.headers.authorization?.split(' ')[1];
         if(!token)
@@ -16,4 +16,4 @@ class AuthenticationMiddleware {
         next();
     }
 }
-module.exports = new AuthenticationMiddleware();
+module.exports = new Authentication();
