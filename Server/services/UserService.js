@@ -3,7 +3,7 @@ const userRepository = require('../repositories/UserRepository');
 class UserService {
     async getAllUsersAsync(page, limit) {
         const offset = (page - 1) * limit;
-        await userRepository.findAllAsync(limit, offset);
+        return await userRepository.findAllAsync(limit, offset);
     }
 
     async getTotalUsersAsync() {
@@ -12,8 +12,8 @@ class UserService {
 
     async getUserByIdAsync(id) {
         const user = await userRepository.findByIdAsync(id);
-        if (user === null)
-            throw new Error(`User with ${id} not found.`);
+        if (user == null)
+            throw new Error(`User with id [${id}] not found.`);
         return user;
     }
 
@@ -27,9 +27,9 @@ class UserService {
     }
 
     async updateUserAsync(id, user) {
-        const existingUser = await this.getUserByIdAsync(id);
+        let existingUser = await this.getUserByIdAsync(id);
         existingUser = await this.prepareUser(user);
-        await userRepository.updateAsync(id, updateUser);
+        await userRepository.updateAsync(id, existingUser);
     }
 
     async deleteUserAsync(id) {

@@ -4,13 +4,13 @@ const ApiResponse = require('../common/ApiResponse');
 class UserController {
     async getAllUsers(req, res) {
         try {
-            let page = parseInt(req.body.page) || 1;
-            let limit = parseInt(req.body.limit) || 10;
+            let page = parseInt(req.query.page) || 1;
+            let limit = parseInt(req.query.limit) || 10;
             
             const users = await userService.getAllUsersAsync(page, limit);
             const totalUsers = await userService.getTotalUsersAsync();
 
-            res.status(200).json(new ApiResponse(true, 'Users retrieved successfully', { users, totalUsers} ));
+            res.status(200).json(new ApiResponse(true, 'Users retrieved successfully', { users, totalUsers } ));
         } catch(error) {
             res.status(500).json({ message: 'Failed to retrieve users' });
         }
@@ -37,7 +37,7 @@ class UserController {
     async updateUser(req, res) {
         try {
             await userService.updateUserAsync(req.params.id, req.body);
-            res.status(204).send('User updated successfully.');
+            res.status(204).send();
         } catch (error) {
             res.status(404).json({ message: error.message });
         }
@@ -46,8 +46,8 @@ class UserController {
     async deleteUser(req, res) {
         try {
             await userService.deleteUserAsync(req.params.id);
-            res.status(204).send('User deleted successfully.');
-        } catch {
+            res.status(204).send();
+        } catch (error) {
             res.status(404).json({ message: error.message });
         }
     }
