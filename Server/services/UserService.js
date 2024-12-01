@@ -18,8 +18,8 @@ class UserService {
     }
 
     async addUserAsync(user) {
-        const userRepo = await this.getUserByIdAsync(id);
-        if (user.username === userRepo.username)
+        const existingUser = await userRepository.findByNameAsync(user.username);
+        if (existingUser)
             throw new Error(`User with username [${user.username}] already exists!`);
 
         const newUser = await this.prepareUser(user);

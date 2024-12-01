@@ -10,7 +10,7 @@ class LoginService {
         
         const isMatch = password == user.password;
         if (!isMatch)
-            throw new Error('Invalid username or password');
+            throw new Error('Invalid username or password.');
 
         const token = jwt.sign(
             { userId: user.userId, roleId: user.roleId },
