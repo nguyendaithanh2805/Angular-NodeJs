@@ -5,6 +5,7 @@ import { User } from '../../models/User';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../Auth/authentication.service';
 import { Router } from '@angular/router';
+import { DecodeToken } from '../Author/DecodeToken';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +14,7 @@ export class LoginService {
   private readonly url = 'http://localhost:3000';
   
   constructor(
+    private author: DecodeToken,
       private http: HttpClient,
       private authService: AuthenticationService,
       private router: Router
@@ -39,11 +41,10 @@ export class LoginService {
               next: (response) => {
                 if (response.success) {
                   this.authService.setToken(response.data.token);
-
                   if (response.data.user.roleId === 1)
                     this.router.navigate(['/admin/users']);
                   else
-                    this.router.navigate(['/menu']);
+                  this.router.navigate(['/menu']);
 
                   console.log('Đăng nhập thành công:', response.data.user);
                 } else {
