@@ -20,8 +20,8 @@ class LoginController {
             ));
         } catch (error) {
             if (error.message.includes('Invalid'))
-                res.status(401).json({ message: error.message });
-            res.status(404).json({ message: error.message });
+                return res.status(401).json({ message: error.message });
+            return res.status(404).json({ message: error.message });
         }
     }
 }

@@ -42,7 +42,8 @@ export class LoginService {
 
                   if (response.data.user.roleId === 1)
                     this.router.navigate(['/admin/users']);
-                  this.router.navigate(['/menu']);
+                  else
+                    this.router.navigate(['/menu']);
 
                   console.log('Đăng nhập thành công:', response.data.user);
                 } else {

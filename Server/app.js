@@ -4,7 +4,18 @@ const userRoute = require('./routes/UserRoute');
 const authenticationRoute = require('./routes/Authentication')
 const authMiddle = require('./middlewares/Authentication');
 const authorMiddle = require('./middlewares/Authorization');
+const cors = require('cors');
+
 app.use(express.json());
+
+// https://viblo.asia/p/cors-policies-and-security-in-nodejs-express-n1j4lxzj4wl
+app.use(cors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+}));
+
 app.use('/api/admin/**', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRole.bind(authorMiddle));
 
 //login
