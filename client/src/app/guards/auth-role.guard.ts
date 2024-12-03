@@ -1,30 +1,18 @@
-import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { CanActivateFn, Router} from '@angular/router';
-import { catchError, map, of } from 'rxjs';
-import { ApiResponse } from '../common/ApiResponse';
+import { DecodeToken } from '../services/Author/DecodeToken';
 
 // https://v17.angular.io/api/router/CanActivateFn
 export const authRoleGuard: CanActivateFn = (route, state) => {
-  const http = inject(HttpClient);
   const router = inject(Router);
+  const decodeToken = inject(DecodeToken);
 
-  return http.get<ApiResponse<null>>('http://localhost:3000/api/admin', {observe: 'response'})
-      .pipe(
-        map((response) => {
-          if (response.body?.success)
-            return true;
+  const roleId = decodeToken.getPayload();
 
-          router.navigate(['/forbidden']);
-          return false;
-        }),
-        catchError((error) => {
-          if (error.status === 403) {
-            router.navigate(['/forbidden']);
-          } else if (error.status === 401) {
-            router.navigate(['/login']);
-          }
-          return of(false); // khong cho phep truy cap neu co loi
-        })
-      )
+  if (roleId !== 1) {
+    router.navigate(['/forbidden']);
+    return false;
+  }
+
+  return true;
 };

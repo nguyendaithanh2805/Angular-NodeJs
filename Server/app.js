@@ -16,7 +16,7 @@ app.use(cors({
     credentials: true,
 }));
 
-app.use('/api/admin/**', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRole.bind(authorMiddle));
+app.use('/api/admin', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRole.bind(authorMiddle));
 
 //login
 app.use('/api', authenticationRoute)
