@@ -6,6 +6,7 @@ import { UserListComponent } from './admins/components/users/user-list/user-list
 import { AdminComponent } from './admins/admin.component';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './users/components/app-layout/app-layout.component';
+import { authRoleGuard } from './guards/auth-role.guard';
 
 export const routes: Routes = [
     // App layout
@@ -24,6 +25,7 @@ export const routes: Routes = [
     { 
       path: 'admin', 
       component: AdminComponent,
+      canActivate: [authRoleGuard],
       children: [
         { path: 'user-list', component: UserListComponent},
       ]

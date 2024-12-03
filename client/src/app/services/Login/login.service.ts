@@ -39,10 +39,13 @@ export class LoginService {
     return this.http.post<ApiResponse<{user: User; token: string}>>(`${this.url}/api/login`, {username, password})
           .pipe(tap({
               next: (response) => {
+                if (response.data === null)
+                  throw new Error('Data is null');
+                
                 if (response.success) {
                   this.authService.setToken(response.data.token);
                   if (response.data.user.roleId === 1)
-                    this.router.navigate(['/admin/users']);
+                    this.router.navigate(['/admin/user-list']);
                   else
                   this.router.navigate(['/menu']);
 
