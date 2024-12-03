@@ -8,7 +8,8 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { authenticationInterceptor } from './interceptors/authentication.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideAnimationsAsync(), 
+  providers: [
+    provideRouter(routes), provideClientHydration(), provideAnimationsAsync(), 
     provideHttpClient(
       // https://v17.angular.io/api/common/http/provideHttpClient
       withFetch(),

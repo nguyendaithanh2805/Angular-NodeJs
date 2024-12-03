@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-user-list',
   standalone: true,
   imports: [],
-  templateUrl: './navbar.component.html',
+  templateUrl: './user-list.component.html',
   styleUrls: [
-    './navbar.component.css',
+    './user-list.component.css',
     '/src/assets/admins/css/bootstrap.min.css',
     '/src/assets/admins/css/animate.css',
     '/src/assets/admins/plugins/select2/css/select2.min.css',
@@ -16,6 +16,6 @@ import { Component } from '@angular/core';
     '/src/assets/admins/css/style.css'
   ]
 })
-export class NavbarComponent {
+export class UserListComponent {
 
 }
