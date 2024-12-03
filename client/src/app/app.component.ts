@@ -8,7 +8,12 @@ import { FooterComponent } from './users/components/footer/footer.component';
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css',
+    '/src/assets/users/css/style.min.css',
+    '/src/assets/users/css/style.min.css',
+    '/src/assets/users/libs/owlcarousel/assets/owl.carousel.min.css',
+    '/src/assets/users/libs/tempusdominus/css/tempusdominus-bootstrap-4.min.css',
+  ]
 })
 
 export class AppComponent {

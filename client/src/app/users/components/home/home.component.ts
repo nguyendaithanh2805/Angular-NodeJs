@@ -5,7 +5,12 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css',
+    '/src/assets/users/css/style.min.css',
+    '/src/assets/users/css/style.min.css',
+    '/src/assets/users/libs/owlcarousel/assets/owl.carousel.min.css',
+    '/src/assets/users/libs/tempusdominus/css/tempusdominus-bootstrap-4.min.css',
+  ]
 })
 export class HomeComponent {
 

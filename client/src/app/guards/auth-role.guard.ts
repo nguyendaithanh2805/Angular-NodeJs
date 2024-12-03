@@ -4,6 +4,7 @@ import { CanActivateFn } from '@angular/router';
 import { Router } from 'express';
 import { catchError, map, of } from 'rxjs';
 
+// https://v17.angular.io/api/router/CanActivateFn
 export const authRoleGuard: CanActivateFn = (route, state) => {
   const http = inject(HttpClient);
   const router = inject(Router);

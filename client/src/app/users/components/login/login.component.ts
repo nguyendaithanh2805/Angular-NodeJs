@@ -20,7 +20,12 @@ import { response } from 'express';
     CommonModule
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css',
+    '/src/assets/users/css/style.min.css',
+    '/src/assets/users/css/style.min.css',
+    '/src/assets/users/libs/owlcarousel/assets/owl.carousel.min.css',
+    '/src/assets/users/libs/tempusdominus/css/tempusdominus-bootstrap-4.min.css',
+  ]
 })
 export class LoginComponent {
   loginForm: FormGroup;
