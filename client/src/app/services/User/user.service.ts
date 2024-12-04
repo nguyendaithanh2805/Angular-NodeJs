@@ -10,7 +10,7 @@ import { response } from 'express';
 })
 export class UserService {
 
-  private readonly url = 'http://localhost:3000';
+  private readonly url = 'http://localhost:3000/api/admin/users';
   constructor(private http: HttpClient) { }
 
   /*

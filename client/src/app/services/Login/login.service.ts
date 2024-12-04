@@ -11,7 +11,7 @@ import { DecodeToken } from '../Author/DecodeToken';
 })
 
 export class LoginService {
-  private readonly url = 'http://localhost:3000';
+  private readonly url = 'http://localhost:3000/api';
   
   constructor(
     private author: DecodeToken,
@@ -37,7 +37,7 @@ export class LoginService {
       }
   */
   login(username: string, password: string): Observable<ApiResponse<{user: User; token: string}>> {
-    return this.http.post<ApiResponse<{user: User; token: string}>>(`${this.url}/api/login`, {username, password})
+    return this.http.post<ApiResponse<{user: User; token: string}>>(`${this.url}/login`, {username, password})
           .pipe(tap({
               next: (response) => {
                 if (response.data === null)

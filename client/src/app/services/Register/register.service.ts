@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class RegisterService {
-  private readonly url = 'http://localhost:3000';
+  private readonly url = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -26,7 +26,7 @@ export class RegisterService {
   */
 
   register(username: string, password: string) : Observable<ApiResponse<{user: User}>> {
-    return this.http.post<ApiResponse<{user: User}>>(`${this.url}/api/register`, {username, password})
+    return this.http.post<ApiResponse<{user: User}>>(`${this.url}/register`, {username, password})
         .pipe(
           tap({
             next: ((response) => {
