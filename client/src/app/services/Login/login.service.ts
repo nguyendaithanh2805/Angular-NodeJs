@@ -21,7 +21,7 @@ export class LoginService {
   ) { }
 
   /*
-    url: http://localhost:3000/api/login
+    POST: /api/login
     response:
       {
         "success": true,

@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
+import { MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { User } from '../../../../models/User';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [],
+  imports: [
+    MatTableModule, MatPaginatorModule
+  ],
   templateUrl: './user-list.component.html',
   styleUrls: [
     './user-list.component.css',
@@ -17,5 +22,11 @@ import { Component } from '@angular/core';
   ]
 })
 export class UserListComponent {
+  displayedColumns: string[] = ['userId', 'roleId', 'username', 'password'];
+  users: User[] = [];
+  paginatedUsers: User[] = [];
+  totalUsers = 0;
+  pageSize = 10;
+  currentPage = 0;
 
 }
