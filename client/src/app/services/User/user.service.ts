@@ -46,4 +46,34 @@ export class UserService {
         map(response => response)
       );
   }
+
+  /*
+    GET: http://localhost:3000/api/admin/users/{{id}}
+    response:
+      {
+        "success": true,
+        "message": "User retrieved successfully with id 4.",
+        "data": {
+            "userId": 4,
+            "roleId": 2,
+            "username": "ads",
+            "password": "12345"
+        }
+      }
+  */
+  getUserById(id: number): Observable<ApiResponse<{user: User}>> {
+    return this.http.get<ApiResponse<{user: User}>>(`${this.url}/${id}`)
+      .pipe(
+        map(response => response)
+      );
+  }
+  // PUT: http://localhost:3000/api/admin/users/{{id}} => 204
+  updateUser(id: number, user: Partial<User>) : Observable<void> {
+    return this.http.put<void>(`${this.url}/${id}`, user);
+  }
+
+  // DELETE: http://localhost:3000/api/admin/users/{{id}}
+  deleteUser(id: number) : Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`);
+  }
 }
