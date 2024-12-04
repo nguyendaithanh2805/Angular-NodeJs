@@ -1,4 +1,5 @@
 const userRepository = require('../repositories/UserRepository');
+const bcrypt = require('bcrypt');
 
 class UserService {
     async getAllUsersAsync(page, limit) {
@@ -40,7 +41,7 @@ class UserService {
     async prepareUser(user) {
         const username = user.username;
         const roleId = username.toUpperCase() === "ADMIN" ? 1 : 2;
-        const password = user.password;
+        const password = await bcrypt.hash(user.password, 10);
         return {roleId, username, password};
     }
 }

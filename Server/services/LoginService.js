@@ -8,7 +8,7 @@ class LoginService {
         if (user == null)
             throw new Error(`User with username [${username}] not found.`);
         
-        const isMatch = password == user.password;
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch)
             throw new Error('Invalid username or password.');
 
