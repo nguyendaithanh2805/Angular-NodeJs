@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RegisterService } from '../../../../services/Register/register.service';
+import { UserService } from '../../../../services/User/user.service';
 
 @Component({
   selector: 'app-user-update',
@@ -27,7 +28,7 @@ export class UserUpdateComponent implements OnInit{
   errorMessage: string | null = null;
   userId!: number;
 
-  constructor(private fb: FormBuilder, private registerService: RegisterService, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private registerService: RegisterService, private userService: UserService, private route: ActivatedRoute) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -36,6 +37,7 @@ export class UserUpdateComponent implements OnInit{
 
   ngOnInit(): void {
     this.userId = Number(this.route.snapshot.paramMap.get('id')); // lay id tu url
+    this.getUserById(this.userId);
   }
 
   onEdit(): void {
@@ -57,4 +59,13 @@ export class UserUpdateComponent implements OnInit{
       });
     }
   };
+
+  getUserById(id: number): void {
+    this.userService.getUserById(id).subscribe({
+      next: (response) => {
+        if (response.success)
+          this.registerForm.patchValue(response.data)
+      }
+    })
+  }
 }
