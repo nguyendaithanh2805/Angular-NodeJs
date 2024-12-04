@@ -22,18 +22,19 @@ export class LoginService {
 
   /*
     url: http://localhost:3000/api/login
-    {
-      "success": true,
-      "message": "Login successfully",
-      "data": {
-          "user": {
-              "userId": 3,
-              "roleId": 2,
-              "username": "test1"
-          },
-          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGVJZCI6MiwiaWF0IjoxNzMzMDU0MTAxLCJleHAiOjE3MzMwNTU5MDF9.DJtLwPw8iFqLi4Y_rhdHMFHhfyZ8Wg2jHKPOT99Cl8g"
+    response:
+      {
+        "success": true,
+        "message": "Login successfully",
+        "data": {
+            "user": {
+                "userId": 3,
+                "roleId": 2,
+                "username": "test1"
+            },
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInJvbGVJZCI6MiwiaWF0IjoxNzMzMDU0MTAxLCJleHAiOjE3MzMwNTU5MDF9.DJtLwPw8iFqLi4Y_rhdHMFHhfyZ8Wg2jHKPOT99Cl8g"
+        }
       }
-    }
   */
   login(username: string, password: string): Observable<ApiResponse<{user: User; token: string}>> {
     return this.http.post<ApiResponse<{user: User; token: string}>>(`${this.url}/api/login`, {username, password})
