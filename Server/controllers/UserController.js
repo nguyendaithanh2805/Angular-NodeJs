@@ -30,7 +30,7 @@ class UserController {
             const userId = await userService.addUserAsync(req.body);
             res.status(201).json(new ApiResponse(true, 'Created user succesfully', { userId: userId }));
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            res.status(400).json({ message: error.message });
         }
     }
 

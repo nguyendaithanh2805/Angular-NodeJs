@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './users/components/app-layout/app-layout.component';
 import { authRoleGuard } from './guards/auth-role.guard';
 import { ForbiddenComponent } from './users/components/forbidden/forbidden.component';
+import { RegisterComponent } from './users/components/register/register.component';
+
 
 export const routes: Routes = [
     // App layout
@@ -19,7 +21,8 @@ export const routes: Routes = [
         { path: 'home', component: HomeComponent },
         { path: 'menu', component: MenuComponent },
         { path: 'login', component: LoginComponent},
-        { path: 'forbidden', component: ForbiddenComponent}
+        { path: 'forbidden', component: ForbiddenComponent},
+        { path: 'register', component: RegisterComponent},
       ]
     },
 
