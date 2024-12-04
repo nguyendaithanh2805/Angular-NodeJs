@@ -8,6 +8,7 @@ import { AppLayoutComponent } from './users/components/app-layout/app-layout.com
 import { authRoleGuard } from './guards/auth-role.guard';
 import { ForbiddenComponent } from './users/components/forbidden/forbidden.component';
 import { RegisterComponent } from './users/components/register/register.component';
+import { UserUpdateComponent } from './admins/components/users/user-update/user-update.component';
 
 
 export const routes: Routes = [
@@ -19,9 +20,9 @@ export const routes: Routes = [
         { path: '', component: HomeComponent},
         { path: 'home', component: HomeComponent },
         { path: 'menu', component: MenuComponent },
-        { path: 'login', component: LoginComponent},
-        { path: 'forbidden', component: ForbiddenComponent},
-        { path: 'register', component: RegisterComponent},
+        { path: 'login', component: LoginComponent },
+        { path: 'forbidden', component: ForbiddenComponent },
+        { path: 'register', component: RegisterComponent },
       ]
     },
 
@@ -32,6 +33,7 @@ export const routes: Routes = [
       canActivate: [authRoleGuard],
       children: [
         { path: 'user-list', component: UserListComponent},
+        { path: 'edit-user/:id', component: UserUpdateComponent }
       ]
     }
 ];

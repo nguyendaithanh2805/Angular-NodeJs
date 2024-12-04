@@ -3,6 +3,7 @@ import { MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { User } from '../../../../models/User';
 import { UserService } from '../../../../services/User/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -23,14 +24,14 @@ import { UserService } from '../../../../services/User/user.service';
   ]
 })
 export class UserListComponent {
-  displayedColumns: string[] = ['userId', 'roleId', 'username', 'password'];
+  displayedColumns: string[] = ['userId', 'roleId', 'username', 'password', 'actions'];
   users: User[] = [];
   paginatedUsers: User[] = [];
   totalUsers = 0;
   pageSize = 10;
   currentPage = 0;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
   
   ngOnInit(): void {
     this.loadUsers(0, 100);
@@ -58,5 +59,9 @@ export class UserListComponent {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
     this.updatePagination();
+  }
+
+  editUser(userId: number): void {
+    this.router.navigate(['/admin/edit-user', userId]);
   }
 }

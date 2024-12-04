@@ -1,0 +1,63 @@
+<style>
+    .page-wrapper {
+        margin-left: 250px;
+        margin-top: 250px;
+    }
+    
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        z-index: 1000;
+    }
+    
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+</style>
+<div class="page-wrapper">
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-top">
+                <div class="table-responsive">
+                    <mat-card class="example-card" appearance="outlined" style="padding: 25px; margin-bottom: 20px;">
+                        <mat-card-title class="text-center mb-2">CẬP NHẬT</mat-card-title>
+                        <form [formGroup]="registerForm" (ngSubmit)="onEdit()">
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Tên tài khoản</mat-label>
+                                <input matInput placeholder="Nhập tên tài khoản" formControlName="username" />
+                            </mat-form-field>
+                        
+                            <mat-form-field appearance="fill" class="full-width">
+                                <mat-label>Mật khẩu</mat-label>
+                                <input matInput type="password" placeholder="Nhập mật khẩu" formControlName="password" />
+                            </mat-form-field>
+                        
+                            <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">
+                                Lưu
+                            </button>
+                            <button mat-raised-button color="warn" routerLink="/admin/user-list" style="margin-top: 25px;">
+                                Hủy
+                            </button>
+                            </form>
+                            <div *ngIf="errorMessage" class="error-message" style="color: red; margin-top: 10px;">
+                                {{ errorMessage }}
+                            </div>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
