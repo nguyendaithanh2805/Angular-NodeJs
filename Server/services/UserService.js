@@ -29,7 +29,7 @@ class UserService {
 
     async updateUserAsync(id, user) {
         let existingUser = await this.getUserByIdAsync(id);
-        existingUser = await this.prepareUser(user);
+        existingUser = await this.updateUser(user);
         await userRepository.updateAsync(id, existingUser);
     }
 
@@ -41,6 +41,13 @@ class UserService {
     async prepareUser(user) {
         const username = user.username;
         const roleId = username.toUpperCase() === "ADMIN" ? 1 : 2;
+        const password = await bcrypt.hash(user.password, 10);
+        return {roleId, username, password};
+    }
+
+    async updateUser(user) {
+        const username = user.username;
+        const roleId = user.roleId;
         const password = await bcrypt.hash(user.password, 10);
         return {roleId, username, password};
     }

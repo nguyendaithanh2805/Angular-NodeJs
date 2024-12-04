@@ -5,9 +5,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { RegisterService } from '../../../../services/Register/register.service';
 import { UserService } from '../../../../services/User/user.service';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-user-update',
@@ -19,7 +20,8 @@ import { UserService } from '../../../../services/User/user.service';
     MatButtonModule,
     MatCardModule,
     CommonModule,
-    RouterLink],
+    RouterLink,
+    MatSelectModule],
   templateUrl: './user-update.component.html',
   styleUrl: './user-update.component.css'
 })
@@ -27,11 +29,16 @@ export class UserUpdateComponent implements OnInit{
   registerForm: FormGroup;
   errorMessage: string | null = null;
   userId!: number;
+  roles = [
+    { id: 1, label: 'Quyền quản trị' },
+    { id: 2, label: 'Quyền người dùng' }
+  ];
 
-  constructor(private fb: FormBuilder, private registerService: RegisterService, private userService: UserService, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private userService: UserService, private route: ActivatedRoute, private router: Router) {
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      roleId: [null, Validators.required],
     });
   }
 
@@ -42,16 +49,17 @@ export class UserUpdateComponent implements OnInit{
 
   onEdit(): void {
     if (this.registerForm.valid) {
-      const {username, password} = this.registerForm.value;
+      const {username, password, roleId } = this.registerForm.value;
       this.errorMessage = null;
-      this.registerService.register(username, password).subscribe({
-        next: (response) => {
-            if (!response.success)
-              this.errorMessage = response.message;
+      const userId = this.userId;
+      this.userService.updateUser(userId, { username, password, roleId }).subscribe({
+        next: () => {
+          alert("Cập nhật thành công!");
+          this.router.navigate(['/admin/user-list']);
         },
         error: (error) => {
-          if (error.status === 400) {
-            this.errorMessage = "Tài khoản đã tồn tại trên hệ thống";
+          if (error.status === 404) {
+            this.errorMessage = error.error?.message || "Người dùng không tồn tại.";
           } else {
             this.errorMessage = "Xảy ra lỗi không xác định";
           }
@@ -67,5 +75,5 @@ export class UserUpdateComponent implements OnInit{
           this.registerForm.patchValue(response.data)
       }
     })
-  }
+  };
 }

@@ -67,8 +67,12 @@ export class UserService {
         map(response => response)
       );
   }
-  // PUT: http://localhost:3000/api/admin/users/{{id}} => 204
-  updateUser(id: number, user: Partial<User>) : Observable<void> {
+  /*
+    PUT: http://localhost:3000/api/admin/users/{{id}} => 204
+    error: 
+      { "message": "User with id ${id} not found." }
+  */
+  updateUser(id: number, user: Partial<User>): Observable<void> {
     return this.http.put<void>(`${this.url}/${id}`, user);
   }
 

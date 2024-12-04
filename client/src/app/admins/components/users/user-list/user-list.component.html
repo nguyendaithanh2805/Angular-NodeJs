@@ -105,8 +105,8 @@
                         </ng-container>
 
                         <ng-container matColumnDef="roleId">
-                            <th mat-header-cell *matHeaderCellDef> Role Id</th>
-                            <td mat-cell *matCellDef="let user"> {{user.roleId}} </td>
+                            <th mat-header-cell *matHeaderCellDef> Role </th>
+                            <td mat-cell *matCellDef="let user"> {{ user.roleId === 1 ? 'Quyền quản trị' : user.roleId === 2 ? 'Quyền người dùng' : 'Chưa được phân quyền' }} </td>
                         </ng-container>
 
                         <ng-container matColumnDef="username">
