@@ -1,6 +1,7 @@
 const userRepository = require('../repositories/UserRepository');
 const jwt = require('jsonwebtoken');
 const config = require('../config/jwt');
+const bcrypt = require('bcrypt');
 
 class LoginService {
     async login(username, password) {
