@@ -27,7 +27,7 @@ export class AuthenticationService {
     }
   }
 
-  clearToken(token: string): void {
+  clearToken(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(this.TOKEN_KEY);
       console.log("Clear token thanh cong");

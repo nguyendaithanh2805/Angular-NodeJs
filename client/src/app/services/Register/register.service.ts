@@ -31,6 +31,7 @@ export class RegisterService {
           tap({
             next: ((response) => {
               console.log(response.message);
+              alert('Đăng ký thành công.');
               this.router.navigate(['/login']);
             })
           }),

@@ -4,6 +4,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { User } from '../../../../models/User';
 import { UserService } from '../../../../services/User/user.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../../../services/Auth/authentication.service';
 
 @Component({
   selector: 'app-user-list',
@@ -31,7 +32,7 @@ export class UserListComponent {
   pageSize = 10;
   currentPage = 0;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private authService: AuthenticationService) {}
   
   ngOnInit(): void {
     this.loadUsers(0, 100);
@@ -63,5 +64,36 @@ export class UserListComponent {
 
   editUser(userId: number): void {
     this.router.navigate(['/admin/edit-user', userId]);
+  }
+
+  deleteUser(user: { userId: number, roleId: number }): void {
+    if (user.roleId === 1) {
+      alert('Không thể xóa tài khoản quản trị viên.');
+      return;
+    }
+
+    const confirmDelete = confirm('Bạn có chắc chắn muốn xóa người dùng này không?');
+    if (confirmDelete) {
+      this.userService.deleteUser(user.userId).subscribe({
+        next: () => {
+          alert('Người dùng đã được xóa thành công.');
+          this.router.navigate(['/admin/user-list']).then(() => {
+            window.location.reload();
+          });
+        },
+        error: (err) => {
+          alert('Có lỗi xảy ra khi xóa người dùng.');
+          console.error(err);
+        }
+      });
+    }
+  }
+
+  logout(): void {
+    this.authService.clearToken();
+    alert('Đăng xuất thành công.');
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload();
+    });
   }
 }

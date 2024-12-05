@@ -5,10 +5,18 @@
 
     th {
         text-align: center;
+        align-content: center;
     }
 
     td {
         padding: 10px;
+    }
+    .mat {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: space-evenly;
+        border: 0;
     }
 </style>
 <div class="page-wrapper">
@@ -19,7 +27,7 @@
                 <h6>Manage your User</h6>
             </div>
             <div class="page-btn">
-                <a href="newuser.html" class="btn btn-added"><img src="../../../../../assets/admins/img/icons/plus.svg" alt="img">Add User</a>
+                <a (click)="logout()" class="btn btn-added">Đăng xuất</a>
             </div>
         </div>
 
@@ -121,8 +129,9 @@
 
                         <ng-container matColumnDef="actions">
                             <th mat-header-cell *matHeaderCellDef> Actions </th>
-                            <td mat-cell *matCellDef="let user">
+                            <td mat-cell *matCellDef="let user" class="mat">
                               <button (click)="editUser(user.userId)" class="btn btn-primary">Edit</button>
+                              <button (click)="deleteUser(user)" class="btn btn-danger">Delete</button>
                             </td>
                           </ng-container>
 

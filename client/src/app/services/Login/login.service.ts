@@ -48,7 +48,9 @@ export class LoginService {
                   if (response.data.user.roleId === 1)
                     this.router.navigate(['/admin/user-list']);
                   else
-                  this.router.navigate(['/menu']);
+                    this.router.navigate(['/menu']).then(() => {
+                      window.location.reload();
+                    });
 
                   console.log('Đăng nhập thành công:', response.data.user);
                 } else {
