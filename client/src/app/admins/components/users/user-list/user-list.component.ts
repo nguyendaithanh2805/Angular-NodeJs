@@ -32,7 +32,7 @@ export class UserListComponent {
   pageSize = 10;
   currentPage = 0;
 
-  constructor(private userService: UserService, private router: Router, private authService: AuthenticationService) {}
+  constructor(private userService: UserService, private router: Router) {}
   
   ngOnInit(): void {
     this.loadUsers(0, 100);
@@ -87,13 +87,5 @@ export class UserListComponent {
         }
       });
     }
-  }
-
-  logout(): void {
-    this.authService.clearToken();
-    alert('Đăng xuất thành công.');
-    this.router.navigate(['/login']).then(() => {
-      window.location.reload();
-    });
   }
 }

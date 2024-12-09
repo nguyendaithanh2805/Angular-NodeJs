@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { RegisterService } from '../../../../services/Register/register.service';
 import { UserService } from '../../../../services/User/user.service';
 import { MatSelectModule } from '@angular/material/select';
 

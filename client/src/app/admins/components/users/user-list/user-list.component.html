@@ -19,133 +19,55 @@
         border: 0;
     }
 </style>
-<div class="page-wrapper">
-    <div class="content">
-        <div class="page-header">
-            <div class="page-title">
-                <h4>User List</h4>
-                <h6>Manage your User</h6>
-            </div>
-            <div class="page-btn">
-                <a (click)="logout()" class="btn btn-added">Đăng xuất</a>
-            </div>
-        </div>
 
-        <div class="card">
-            <div class="card-body">
-                <div class="table-top">
-                    <div class="search-set">
-                        <div class="search-path">
-                            <a class="btn btn-filter" id="filter_search">
-                                <img src="../../../../../assets/admins/img/icons/filter.svg" alt="img">
-                                <span><img src="../../../../../assets/admins/img/icons/closes.svg" alt="img"></span>
-                            </a>
-                        </div>
-                        <div class="search-input">
-                            <a class="btn btn-searchset"><img src="../../../../../assets/admins/img/icons/search-white.svg" alt="img">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="wordset">
-                        <ul>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="../../../../../assets/admins/img/icons/pdf.svg" alt="img">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="../../../../../assets/admins/img/icons/excel.svg" alt="img">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="../../../../../assets/admins/img/icons/printer.svg" alt="img">
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+<div class="page-header">
+    <div class="page-title">
+        <h4>User List</h4>
+        <h6>Manage your User</h6>
+    </div>
+</div>
 
-                <div class="card" id="filter_inputs">
-                    <div class="card-body pb-0">
-                        <div class="row">
-                            <div class="col-lg-2 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Enter User Name">
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Enter Phone">
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Enter Email">
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <input type="text" class="datetimepicker cal-icon" placeholder="Choose Date">
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <select class="select">
-                                        <option>Disable</option>
-                                        <option>Enable</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-                                <div class="form-group">
-                                    <a class="btn btn-filters ms-auto"><img src="../../../../../assets/admins/img/icons/search-whites.svg" alt="img">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table mat-table [dataSource]="paginatedUsers" class="mat-elevation-z8">
+                <ng-container matColumnDef="userId">
+                    <th mat-header-cell *matHeaderCellDef> User Id</th>
+                    <td mat-cell *matCellDef="let user"> {{user.userId}} </td>
+                </ng-container>
 
-                <div class="table-responsive">
-                    <table mat-table [dataSource]="paginatedUsers" class="mat-elevation-z8">
-                        <ng-container matColumnDef="userId">
-                            <th mat-header-cell *matHeaderCellDef> User Id</th>
-                            <td mat-cell *matCellDef="let user"> {{user.userId}} </td>
-                        </ng-container>
+                <ng-container matColumnDef="roleId">
+                    <th mat-header-cell *matHeaderCellDef> Role </th>
+                    <td mat-cell *matCellDef="let user"> {{ user.roleId === 1 ? 'Quyền quản trị' : user.roleId === 2 ? 'Quyền người dùng' : 'Chưa được phân quyền' }} </td>
+                </ng-container>
 
-                        <ng-container matColumnDef="roleId">
-                            <th mat-header-cell *matHeaderCellDef> Role </th>
-                            <td mat-cell *matCellDef="let user"> {{ user.roleId === 1 ? 'Quyền quản trị' : user.roleId === 2 ? 'Quyền người dùng' : 'Chưa được phân quyền' }} </td>
-                        </ng-container>
+                <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef> Username </th>
+                    <td mat-cell *matCellDef="let user"> {{user.username}} </td>
+                </ng-container>
 
-                        <ng-container matColumnDef="username">
-                            <th mat-header-cell *matHeaderCellDef> Username </th>
-                            <td mat-cell *matCellDef="let user"> {{user.username}} </td>
-                        </ng-container>
+                <ng-container matColumnDef="password">
+                    <th mat-header-cell *matHeaderCellDef> Password </th>
+                    <td mat-cell *matCellDef="let user"> {{user.password}} </td>
+                </ng-container>
 
-                        <ng-container matColumnDef="password">
-                            <th mat-header-cell *matHeaderCellDef> Password </th>
-                            <td mat-cell *matCellDef="let user"> {{user.password}} </td>
-                        </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                    <td mat-cell *matCellDef="let user" class="mat">
+                        <button (click)="editUser(user.userId)" class="btn btn-primary">Edit</button>
+                        <button (click)="deleteUser(user)" class="btn btn-danger">Delete</button>
+                    </td>
+                    </ng-container>
 
-                        <ng-container matColumnDef="actions">
-                            <th mat-header-cell *matHeaderCellDef> Actions </th>
-                            <td mat-cell *matCellDef="let user" class="mat">
-                              <button (click)="editUser(user.userId)" class="btn btn-primary">Edit</button>
-                              <button (click)="deleteUser(user)" class="btn btn-danger">Delete</button>
-                            </td>
-                          </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                    </table>
-                    <mat-paginator
-                    [length]="totalUsers"
-                    [pageSize]="pageSize"
-                    [pageSizeOptions]="[5, 10, 25, 50]"
-                    (page)="onPageChange($event)">
-                  </mat-paginator>
-                </div>
-            </div>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator
+            [length]="totalUsers"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[5, 10, 25, 50]"
+            (page)="onPageChange($event)">
+            </mat-paginator>
         </div>
     </div>
 </div>

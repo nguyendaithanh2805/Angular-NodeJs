@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from '../../../services/Auth/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -17,5 +19,13 @@ import { Component } from '@angular/core';
   ]
 })
 export class NavbarComponent {
-
+  constructor(private authService: AuthenticationService, private router: Router) {}
+  
+  logout(): void {
+    this.authService.clearToken();
+    alert('Đăng xuất thành công.');
+    this.router.navigate(['/login']).then(() => {
+      window.location.reload();
+    });
+  }
 }

@@ -9,6 +9,8 @@ import { authRoleGuard } from './guards/auth-role.guard';
 import { ForbiddenComponent } from './users/components/forbidden/forbidden.component';
 import { RegisterComponent } from './users/components/register/register.component';
 import { UserUpdateComponent } from './admins/components/users/user-update/user-update.component';
+import { CategoriesComponent } from './admins/components/categories/category-list/categories.component';
+import { CategoryFormComponent } from './admins/components/categories/category-form/category-form.component';
 
 
 export const routes: Routes = [
@@ -32,8 +34,11 @@ export const routes: Routes = [
       component: AdminComponent,
       canActivate: [authRoleGuard],
       children: [
-        { path: 'user-list', component: UserListComponent},
-        { path: 'edit-user/:id', component: UserUpdateComponent }
+        { path: 'user-list', component: UserListComponent },
+        { path: 'edit-user/:id', component: UserUpdateComponent },
+        { path: 'category-list', component: CategoriesComponent },
+        { path: 'edit-category/:id', component: CategoryFormComponent },
+        { path: 'add-category', component: CategoryFormComponent }
       ]
     }
 ];
