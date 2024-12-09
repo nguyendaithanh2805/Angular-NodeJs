@@ -95,3 +95,25 @@ ALTER TABLE tbl_cart
 ALTER TABLE tbl_user
     ADD CONSTRAINT FK_tbl_user_tbl_role FOREIGN KEY (roleId) REFERENCES tbl_role(roleId);
 INSERT INTO tbl_role (roleId, name) VALUES (1, 'ROLE_ADMIN'), (2, 'ROLE_USER');
+INSERT INTO tbl_user (roleId, username, password)
+VALUES
+(2, 'ThanhNguyen', 'password1'),
+(2, 'TuanLe', 'password2'),
+(2, 'TrinhPhan', 'password3'),
+(2, 'NhiHo', 'password4'),
+(2, 'DuTran', 'password5'),
+(2, 'HoaVo', 'password6'),
+(2, 'MinhNguyen', 'password7'),
+(2, 'QuangTran', 'password8'),
+(2, 'AnPham', 'password9'),
+(2, 'BaoLe', 'password10'),
+(2, 'LinhPham', 'password11'),
+(2, 'HaVu', 'password12'),
+(2, 'NamHoang', 'password13'),
+(2, 'PhuongBui', 'password14'),
+(2, 'TrangDang', 'password15'),
+(2, 'HuyLe', 'password16'),
+(2, 'KhanhNguyen', 'password17'),
+(2, 'ThaoPham', 'password18'),
+(2, 'KienNguyen', 'password19'),
+(2, 'DuyTran', 'password20');

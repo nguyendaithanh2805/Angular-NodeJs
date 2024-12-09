@@ -14,7 +14,6 @@ export class LoginService {
   private readonly url = 'http://localhost:3000/api';
   
   constructor(
-    private author: DecodeToken,
       private http: HttpClient,
       private authService: AuthenticationService,
       private router: Router
