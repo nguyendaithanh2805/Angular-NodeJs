@@ -4,6 +4,7 @@ const userRoute = require('./routes/UserRoute');
 const authenticationRoute = require('./routes/Authentication')
 const authMiddle = require('./middlewares/Authentication');
 const authorMiddle = require('./middlewares/Authorization');
+const categoryRouter = require('./routes/CategoryRoute');
 const cors = require('cors');
 
 app.use(express.json());
@@ -18,10 +19,13 @@ app.use(cors({
 
 app.use('/api/admin', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRole.bind(authorMiddle));
 
-//login
+// login
 app.use('/api', authenticationRoute)
 
 // user
 app.use('/api/admin', userRoute);
+
+// category
+app.use('/api/admin', categoryRouter)
 
 module.exports = app;
