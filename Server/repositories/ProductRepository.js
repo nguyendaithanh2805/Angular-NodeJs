@@ -36,7 +36,7 @@ class ProductRepository {
         console.log(`Deleted product successfully with ID : [${product.productId}]`);
     }
 
-    async findTotalproductAsync() {
+    async findTotalProductAsync() {
         const [rows] = await db.query('SELECT COUNT(*) as total FROM tbl_product');
         return rows[0].total;
     }
