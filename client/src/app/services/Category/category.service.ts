@@ -47,7 +47,7 @@ export class CategoryService {
       }
   */
   getCategoryById(id: number): Observable<ApiResponse<{category: Category}>> {
-    return this.http.get<ApiResponse<{category: Category}>>(`${this.url}/category/${id}`)
+    return this.http.get<ApiResponse<{category: Category}>>(`${this.url}/categories/${id}`)
       .pipe(
         map(response => response)
       );
@@ -65,19 +65,19 @@ export class CategoryService {
       }
   */
   addCategory(name: string): Observable<ApiResponse<{ categoryId: number }>> {
-    return this.http.post<ApiResponse<{ categoryId: number }>>(`${this.url}/category`, { name })
+    return this.http.post<ApiResponse<{ categoryId: number }>>(`${this.url}/categories`, { name })
       .pipe(
         map(response => response)
       );
   }
   // 204
   updateCategory(id: number, name: string): Observable<void> {
-    return this.http.put<void>(`${this.url}/category/${id}`, { name });
+    return this.http.put<void>(`${this.url}/categories/${id}`, { name });
   }
   
   // 204
   deleteCategory(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.url}/category/${id}`);
+    return this.http.delete<void>(`${this.url}/categories/${id}`);
   }
   
 }
