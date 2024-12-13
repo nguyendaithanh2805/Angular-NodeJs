@@ -1,4 +1,5 @@
 const productRepository = require("../repositories/ProductRepository");
+const categoryRepository = require("../services/CategoryService");
 
 class ProductService {
     async getAllProductAsync(page, limit) {
@@ -22,11 +23,15 @@ class ProductService {
         if (existingproduct)
             throw new Error(`Product with name [${product.name}] already exists!`);
 
+        await this.checkExistsCategory(product);
+
         return await productRepository.addAsync(product);
     }
 
     async updateProductAsync(id, product) {
         let existingProduct = await this.getProductByIdAsync(id);
+        await this.checkExistsCategory(product);
+        
         existingProduct = await this.prepareProductForUpdate(product);
         await productRepository.updateAsync(id, existingProduct);
     }
@@ -45,6 +50,12 @@ class ProductService {
         const quantity = product.quantity;
         const sellingPrice = product.sellingPrice;
         return { name, categoryId, description, discount, image, quantity, sellingPrice };
+    }
+
+    async checkExistsCategory(product) {
+        const category = await categoryRepository.getCategoryByIdAsync(product.categoryId);
+        if (category == null)
+            throw new Error(`Category with id [${product.categoryId}] not found.`);
     }
 }
 module.exports = new ProductService();
