@@ -12,6 +12,7 @@ import { UserUpdateComponent } from './admins/components/users/user-update/user-
 import { CategoriesComponent } from './admins/components/categories/category-list/categories.component';
 import { CategoryFormComponent } from './admins/components/categories/category-form/category-form.component';
 import { ProductListComponent } from './admins/components/products/product-list/product-list.component';
+import { ProductFormComponent } from './admins/components/products/product-form/product-form.component';
 
 
 export const routes: Routes = [
@@ -40,7 +41,8 @@ export const routes: Routes = [
         { path: 'category-list', component: CategoriesComponent },
         { path: 'edit-category/:id', component: CategoryFormComponent },
         { path: 'add-category', component: CategoryFormComponent },
-        { path: 'product-list', component: ProductListComponent}
+        { path: 'product-list', component: ProductListComponent },
+        { path: 'add-product', component: ProductFormComponent },
       ]
     }
 ];

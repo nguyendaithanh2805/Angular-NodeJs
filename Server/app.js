@@ -7,6 +7,7 @@ const authorMiddle = require('./middlewares/Authorization');
 const categoryRoute = require('./routes/CategoryRoute');
 const productRoute = require('./routes/ProductRoute');
 const cors = require('cors');
+const path = require('path');
 
 app.use(express.json());
 
@@ -31,5 +32,8 @@ app.use('/api/admin', categoryRoute);
 
 // Product
 app.use('/api/admin', productRoute);
+
+// Cho phep cac yeu cau voi duong dan /uploads/*
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 module.exports = app;

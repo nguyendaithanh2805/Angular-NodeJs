@@ -1,5 +1,6 @@
 const ApiResponse = require("../common/ApiResponse");
 const productService = require("../services/ProductService");
+const imageMiddleware = require("../middlewares/HandleImage");
 
 class ProductController {
     async getAllProducts(req, res) {
@@ -8,9 +9,9 @@ class ProductController {
             let limit = parseInt(req.query.limit) || 10;
             
             const products = await productService.getAllProductAsync(page, limit);
-            const totalproducts = await productService.getTotalProductAsync();
+            const totalProducts = await productService.getTotalProductAsync();
 
-            res.status(200).json(new ApiResponse(true, 'Products retrieved successfully', { products, totalproducts } ));
+            res.status(200).json(new ApiResponse(true, 'Products retrieved successfully', { products, totalProducts } ));
         } catch(error) {
             res.status(500).json({ message: 'Failed to retrieve products' });
         }
@@ -27,9 +28,16 @@ class ProductController {
 
     async addProduct(req, res) {
         try {
-            const productId = await productService.addProductAsync(req.body);
+            const imageName = req.file ? req.file.filename : null;
+
+            const productData = { ...req.body, image: imageName };
+            const productId = await productService.addProductAsync(productData);
+
             res.status(201).json(new ApiResponse(true, 'Created product succesfully', { productId: productId }));
         } catch (error) {
+            if (req.file) {
+                imageMiddleware.deleteImage(req.file.filename);
+            }
             res.status(400).json({ message: error.message });
         }
     }

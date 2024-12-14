@@ -11,11 +11,8 @@
     }
 </style>
 <div class="text-center" style="margin-top: 100px;">
-    @if(isEdit) {
-        <h4>Cập nhật loại sản phẩm</h4>
-    } @else {
-        <h4> Tạo mới loại sản phẩm</h4>
-    }
+    <h4 *ngIf="isEdit">Cập nhật loại sản phẩm</h4>
+    <h4 *ngIf="!isEdit">Tạo mới loại sản phẩm</h4>
 </div>
 <form [formGroup]="AddOrUpdateForm" (ngSubmit)="save()">
     <mat-form-field appearance="fill" class="full-width">
