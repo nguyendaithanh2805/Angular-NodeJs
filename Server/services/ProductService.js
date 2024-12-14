@@ -18,22 +18,27 @@ class ProductService {
         return product;
     }
 
-    async addProductAsync(product) {
+    async addProductAsync(product, file) {
         const existingproduct = await productRepository.findByNameAsync(product.name);
         if (existingproduct)
             throw new Error(`Product with name [${product.name}] already exists!`);
 
         await this.checkExistsCategory(product);
 
-        return await productRepository.addAsync(product);
+        const preparedProduct = await this.prepareProductData(product, file);
+        return await productRepository.addAsync(preparedProduct);
     }
 
-    async updateProductAsync(id, product) {
+    async updateProductAsync(id, product, file) {
         let existingProduct = await this.getProductByIdAsync(id);
+
+        if (file && existingProduct.image)
+            imageMiddleware.deleteImage(existingProduct.image);
+
         await this.checkExistsCategory(product);
-        
-        existingProduct = await this.prepareProductForUpdate(product);
-        await productRepository.updateAsync(id, existingProduct);
+
+        const preparedProduct = await this.prepareProductData(product, file);
+        await productRepository.updateAsync(id, preparedProduct);
     }
 
     async deleteProductAsync(id) {
@@ -41,14 +46,14 @@ class ProductService {
         await productRepository.deleteAsync(product);
     }
 
-    async prepareProductForUpdate(product) {
+    async prepareProductData(product, file) {
         const name = product.name;
         const categoryId = product.categoryId;
         const description = product.description;
         const discount = product.discount;
-        const image = product.image;
+        const image = file ? file.filename : existingProduct.image;
         const quantity = product.quantity;
-        const sellingPrice = product.sellingPrice;
+        const sellingPrice = product.sellingPrice - (product.sellingPrice * (discount/100));
         return { name, categoryId, description, discount, image, quantity, sellingPrice };
     }
 

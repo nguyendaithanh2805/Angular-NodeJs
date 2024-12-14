@@ -28,10 +28,7 @@ class ProductController {
 
     async addProduct(req, res) {
         try {
-            const imageName = req.file ? req.file.filename : null;
-
-            const productData = { ...req.body, image: imageName };
-            const productId = await productService.addProductAsync(productData);
+            const productId = await productService.addProductAsync(req.body, req.file);
 
             res.status(201).json(new ApiResponse(true, 'Created product succesfully', { productId: productId }));
         } catch (error) {
@@ -44,9 +41,12 @@ class ProductController {
 
     async updateproduct(req, res) {
         try {
-            await productService.updateProductAsync(req.params.id, req.body);
+            await productService.updateProductAsync(req.params.id, req.body, req.file);
             res.status(204).send();
         } catch (error) {
+            if (req.file) {
+                imageMiddleware.deleteImage(req.file.filename);
+            }
             res.status(404).json({ message: error.message });
         }
     }
