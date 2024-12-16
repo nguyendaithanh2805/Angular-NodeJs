@@ -11,6 +11,11 @@ class CartRepository {
         return rows[0];
     }
 
+    async findByUserIdAsync() {
+        const [rows] = await db.query('SELECT * FROM tbl_cart WHERE userId = ?', [id]);
+        return rows[0];
+    }
+
     async addAsync(cart) {
         const [result] = await db.query('INSERT INTO tbl_cart (userId, productId, quantity, totalBill) VALUES (?, ?, ? , ?)', 
             [cart.userId, cart.productId, cart.quantity, cart.totalBill]);

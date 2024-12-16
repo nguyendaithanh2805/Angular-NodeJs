@@ -6,10 +6,6 @@ class CartService {
         return await cartRepository.findAllAsync();
     }
 
-    async getTotalCartAsync() {
-        return await cartRepository.findTotalCartAsync();
-    }
-
     async getCartByIdAsync(id) {
         const cart = await cartRepository.findByIdAsync(id);
         if (cart == null)
@@ -35,6 +31,13 @@ class CartService {
     async deleteCartAsync(id) {
         const cart = await this.getCartByIdAsync(id);
         await cartRepository.deleteAsync(cart);
+    }
+
+    async getCartByUserIdAsync(id) {
+        const cart = await cartRepository.findByUserIdAsync(id);
+        if (cart == null)
+            throw new Error(`Cart with id [${id}] not found.`);
+        return cart;
     }
 }
 module.exports = new CartService();
