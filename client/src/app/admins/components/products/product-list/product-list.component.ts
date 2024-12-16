@@ -77,11 +77,25 @@ export class ProductListComponent {
     return category ? category.name : 'Không có';
   }
 
-  editCategory(categoryId: number) {
-    
+  editProduct(productId: number) {
+    this.router.navigate(['/admin/edit-product', productId]);
   }
 
-  deleteCategory(categoryId: number) {
-    
+  deleteProduct(productId: number) {
+    const confirmDelete = confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');
+    if (confirmDelete) {
+      this.productService.deleteProduct(productId).subscribe({
+        next: () => {
+          alert('Sản phẩm đã được xóa thành công.');
+          this.router.navigate(['/admin/product-list']).then(() => {
+            window.location.reload();
+          });
+        },
+        error: (err) => {
+          alert('Có lỗi xảy ra khi xóa sản phẩm.');
+          console.error(err);
+        }
+      });
+    }
   }
 }

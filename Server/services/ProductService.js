@@ -1,5 +1,6 @@
 const productRepository = require("../repositories/ProductRepository");
 const categoryRepository = require("../services/CategoryService");
+const imageMiddleware = require('../middlewares/HandleImage'); 
 
 class ProductService {
     async getAllProductAsync(page, limit) {
@@ -51,7 +52,7 @@ class ProductService {
         const categoryId = product.categoryId;
         const description = product.description;
         const discount = product.discount;
-        const image = file ? file.filename : existingProduct.image;
+        const image = file.filename;
         const quantity = product.quantity;
         const sellingPrice = product.sellingPrice - (product.sellingPrice * (discount/100));
         return { name, categoryId, description, discount, image, quantity, sellingPrice };

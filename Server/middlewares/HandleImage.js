@@ -1,7 +1,6 @@
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-
 const uploadDir = path.join(__dirname, '../uploads');
 
 // Tạo thư mục lưu ảnh nếu chưa tồn tại

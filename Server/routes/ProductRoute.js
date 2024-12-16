@@ -6,7 +6,7 @@ const imageMiddleware = require('../middlewares/HandleImage');
 router.get('/products', productController.getAllProducts);
 router.get('/products/:id', productController.getProductById);
 router.post('/products', imageMiddleware.uploadImage, productController.addProduct);
-router.put('/products/:id', productController.updateproduct);
+router.put('/products/:id', imageMiddleware.uploadImage, productController.updateproduct);
 router.delete('/products/:id', productController.deleteproduct);
 
 module.exports = router;

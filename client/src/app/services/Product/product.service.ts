@@ -60,8 +60,8 @@ export class ProductService {
         }
       }
   */
-  getProductById(productId: number): Observable<ApiResponse<{products: Product}>> {
-    return this.http.get<ApiResponse<{products: Product}>>(`${this.url}/${productId}`)
+  getProductById(productId: number): Observable<ApiResponse<Product>> {
+    return this.http.get<ApiResponse<Product>>(`${this.url}/${productId}`)
       .pipe(
         map(response => response)
       );
@@ -86,9 +86,9 @@ export class ProductService {
     PUT: /api/admin/products/{{id}}
     response: No Content
   */
-  updateProduct(product: Product | FormData, id: number): Observable<void> {
-    return this.http.put<void>(`${this.url}/${id}`, product);
-  }
+    updateProduct(product: Product | FormData, id: number): Observable<ApiResponse<void>> {
+      return this.http.put<ApiResponse<void>>(`${this.url}/${id}`, product);
+    }
 
     /*
     DELETE: /api/admin/products/{{id}}

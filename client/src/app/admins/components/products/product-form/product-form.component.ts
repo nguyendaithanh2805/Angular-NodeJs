@@ -39,7 +39,7 @@ export class ProductFormComponent implements OnInit{
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private categoryService: CategoryService, private productService: ProductService) {
     this.AddOrUpdateForm = this.fb.group({
-      categoryId: [null, Validators.required],
+      categoryId: ['', Validators.required],
       name: ['', Validators.required],
       description: ['', Validators.required],
       discount: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -52,7 +52,7 @@ export class ProductFormComponent implements OnInit{
     this.productId = Number(this.route.snapshot.paramMap.get('id'));
     if (this.productId) {
       this.isEdit = true;
-      this.loadProduct(this.productId); // Load thông tin sản phẩm
+      this.getProductById(this.productId);
     }
 
     this.loadCategories();
@@ -68,30 +68,6 @@ export class ProductFormComponent implements OnInit{
         this.errorMessage = null;
       }
     })
-  }
-
-  loadProduct(productId: number): void {
-    this.productService.getProductById(productId).subscribe({
-      next: (response: any) => {
-        if (response.success) {
-          const product = response.data.product;
-          this.AddOrUpdateForm.patchValue({
-            name: product.name,
-            description: product.description,
-            categoryId: product.categoryId,
-            discount: product.discount,
-            quantity: product.quantity,
-            sellingPrice: product.sellingPrice,
-          });
-          this.imageShow = `/uploads/${product.image}`;
-        } else {
-          this.errorMessage = 'Không thể tải thông tin sản phẩm.';
-        }
-      },
-      error: () => {
-        this.errorMessage = 'Lỗi khi tải thông tin sản phẩm.';
-      },
-    });
   }
 
   onFileSelected(event: any): void {
@@ -130,7 +106,12 @@ export class ProductFormComponent implements OnInit{
             alert('Tên sản phẩm quá dài. Vui lòng nhập tên ngắn hơn.');
           } else if (err.error?.message?.includes('Cannot delete or update a parent row')) {
             alert('Không thể cập nhật sản phẩm này vì có ràng buộc dữ liệu.');
-          } else {
+          } else if (err.error?.message?.includes('Cannot read properties of undefined (reading \'filename\')')) {
+            alert('Không thể cập nhật vì chưa tải lên ảnh');
+          } else if (err.error?.message?.includes("Out of range value for column 'sellingPrice'")) {
+            alert('Giá bán vượt quá giới hạn cho phép. Vui lòng nhập giá trong phạm vi hợp lệ.');
+          }
+          else {
             alert('Đã xảy ra lỗi khi cập nhật sản phẩm!');
           }
           console.error(err);
@@ -150,5 +131,20 @@ export class ProductFormComponent implements OnInit{
     }
   }
   
+  getProductById(productId: number): void {
+    this.productService.getProductById(productId).subscribe({
+      next: (response) => {
+        if (response.success)
+          this.AddOrUpdateForm.patchValue({
+            categoryId: response.data.categoryId,
+            name: response.data.name,
+            description: response.data.description,
+            discount: response.data.discount,
+            quantity: response.data.quantity,
+            sellingPrice: response.data.sellingPrice,
+          });
+        }
+    })
+  }
 
 }
