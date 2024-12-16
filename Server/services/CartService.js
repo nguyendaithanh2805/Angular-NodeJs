@@ -1,18 +1,6 @@
 const cartRepository = require("../repositories/CartRepository");
-const productRepository = require("../repositories/ProductRepository");
 
 class CartService {
-    async getAllCartAsync() {
-        return await cartRepository.findAllAsync();
-    }
-
-    async getCartByIdAsync(id) {
-        const cart = await cartRepository.findByIdAsync(id);
-        if (cart == null)
-            throw new Error(`Cart with id [${id}] not found.`);
-        return cart;
-    }
-
     async addCartAsync(cart) {
         return await cartRepository.addAsync(cart);
     }
@@ -36,7 +24,7 @@ class CartService {
     async getCartByUserIdAsync(id) {
         const cart = await cartRepository.findByUserIdAsync(id);
         if (cart == null)
-            throw new Error(`Cart with id [${id}] not found.`);
+            throw new Error(`Cart with user id [${id}] not found.`);
         return cart;
     }
 }

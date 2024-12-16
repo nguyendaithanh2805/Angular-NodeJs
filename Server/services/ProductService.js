@@ -59,9 +59,7 @@ class ProductService {
     }
 
     async checkExistsCategory(product) {
-        const category = await categoryRepository.getCategoryByIdAsync(product.categoryId);
-        if (category == null)
-            throw new Error(`Category with id [${product.categoryId}] not found.`);
+        await categoryRepository.getCategoryByIdAsync(product.categoryId);
     }
 }
 module.exports = new ProductService();

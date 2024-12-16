@@ -8,6 +8,7 @@ const categoryRoute = require('./routes/CategoryRoute');
 const productRoute = require('./routes/ProductRoute');
 const cors = require('cors');
 const path = require('path');
+const cartRoute = require('./routes/CartRoute');
 
 app.use(express.json());
 
@@ -19,6 +20,7 @@ app.use(cors({
     credentials: true,
 }));
 
+// Tat ca route co tien to '/api/admin/**' deu yeu cau xac thuc
 app.use('/api/admin', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRole.bind(authorMiddle));
 
 // Login
@@ -35,5 +37,8 @@ app.use('/api/admin', productRoute);
 
 // Cho phep cac yeu cau voi duong dan /uploads/*
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Cart
+app.use('/api', cartRoute);
 
 module.exports = app;

@@ -1,17 +1,12 @@
 const db = require("../config/db");
 
 class CartRepository {
-    async findAllAsync() {
-        const [rows] = await db.query('SELECT * FROM tbl_cart');
-        return rows;
-    }
-
     async findByIdAsync(id) {
         const [rows] = await db.query('SELECT * FROM tbl_cart WHERE cartId = ?', [id]);
         return rows[0];
     }
 
-    async findByUserIdAsync() {
+    async findByUserIdAsync(id) {
         const [rows] = await db.query('SELECT * FROM tbl_cart WHERE userId = ?', [id]);
         return rows[0];
     }
