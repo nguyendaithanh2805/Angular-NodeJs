@@ -104,8 +104,6 @@ export class ProductFormComponent implements OnInit{
         error: (err) => {
           if (err.error?.message?.includes("Data too long for column 'name'")) {
             alert('Tên sản phẩm quá dài. Vui lòng nhập tên ngắn hơn.');
-          } else if (err.error?.message?.includes('Cannot delete or update a parent row')) {
-            alert('Không thể cập nhật sản phẩm này vì có ràng buộc dữ liệu.');
           } else if (err.error?.message?.includes('Cannot read properties of undefined (reading \'filename\')')) {
             alert('Không thể cập nhật vì chưa tải lên ảnh');
           } else if (err.error?.message?.includes("Out of range value for column 'sellingPrice'")) {
