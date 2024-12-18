@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { Product } from '../../../models/Products';
-import { Router } from '@angular/router';
-import { ProductService } from '../../../services/Product/product.service';
 import { CommonModule } from '@angular/common';
+import { MenuService } from '../../../services/Menu/menu.service';
 
 @Component({
   selector: 'app-menu',
@@ -25,8 +24,7 @@ export class MenuComponent {
   quantities: Map<number, number> = new Map(); 
   
   constructor(
-    private router: Router,
-    private productService: ProductService
+    private menuService: MenuService,
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +32,7 @@ export class MenuComponent {
   }
 
   loadProducts(): any {
-    this.productService.getAllProducts().subscribe(response => {
+    this.menuService.getAllProducts().subscribe(response => {
       if (response.success) {
         this.products = response.data.products;
 
