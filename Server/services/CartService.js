@@ -6,7 +6,7 @@ class CartService {
     }
 
     async updateCartAsync(id, cart) {
-        let existingCart = await this.getCartByIdAsync(id);
+        let existingCart = await this.getCartByUserIdAsync(id);
 
         existingCart.userId = cart.userId;
         existingCart.productId = cart.productId;
@@ -17,7 +17,7 @@ class CartService {
     }
 
     async deleteCartAsync(id) {
-        const cart = await this.getCartByIdAsync(id);
+        const cart = await this.getCartByUserIdAsync(id);
         await cartRepository.deleteAsync(cart);
     }
 

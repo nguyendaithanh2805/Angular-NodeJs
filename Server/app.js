@@ -22,7 +22,7 @@ app.use(cors({
 }));
 
 // Tat ca route co tien to '/api/admin/**' deu yeu cau xac thuc
-app.use('/api/admin', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRole.bind(authorMiddle));
+app.use('/api/admin', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRoleAdmin.bind(authorMiddle));
 
 // Login
 app.use('/api', authenticationRoute);
@@ -39,10 +39,10 @@ app.use('/api/admin', productRoute);
 // Cho phep cac yeu cau voi duong dan /uploads/*
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Cart
-app.use('/api', cartRoute);
-
 // Menu
 app.use('/api', menuRoute);
+
+// Cart
+app.use('/api', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRoleUser.bind(authorMiddle), cartRoute);
 
 module.exports = app;
