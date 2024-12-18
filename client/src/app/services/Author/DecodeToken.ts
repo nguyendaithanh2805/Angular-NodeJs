@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AuthenticationService } from "../Auth/authentication.service";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root',
@@ -7,7 +8,10 @@ import { AuthenticationService } from "../Auth/authentication.service";
   
 export class DecodeToken {
 
-    constructor(private authService: AuthenticationService) {}
+    constructor(
+        private authService: AuthenticationService, 
+        private router: Router
+    ) {}
 
     getPayload(): any {
         try {
@@ -17,9 +21,11 @@ export class DecodeToken {
 
             const payload = token.split('.')[1];
             const decodedToken = JSON.parse(atob(payload));
-            return decodedToken.roleId;
+            return decodedToken;
         } catch (error) {
-            return console.error('Invalid token format', error);
+            console.error('Invalid token format:', error);
+            this.router.navigate(['/login']);
+            return null;
         }
     }
 }

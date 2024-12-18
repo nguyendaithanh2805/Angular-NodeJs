@@ -7,11 +7,19 @@ export const authRoleGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const decodeToken = inject(DecodeToken);
 
-  const roleId = decodeToken.getPayload();
+  const payload = decodeToken.getPayload();
 
-  if (roleId !== 1) {
-    router.navigate(['/forbidden']);
+  if (!payload) {
+    router.navigate(['/login']);
     return false;
+  }
+
+  // Kiem tra khi nguoi dung truy cap den Route cos tien to /admin
+  if (state.url.startsWith('/admin')) {
+    if (payload.roleId !== 1) {
+      router.navigate(['/forbidden']);
+      return false;
+    }
   }
 
   return true;

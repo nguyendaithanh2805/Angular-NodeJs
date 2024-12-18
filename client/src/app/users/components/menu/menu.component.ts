@@ -4,6 +4,10 @@ import {MatCardModule} from '@angular/material/card';
 import { Product } from '../../../models/Products';
 import { CommonModule } from '@angular/common';
 import { MenuService } from '../../../services/Menu/menu.service';
+import { CartService } from '../../../services/Cart/cart.service';
+import { Cart } from '../../../models/Cart';
+import { AuthenticationService } from '../../../services/Auth/authentication.service';
+import { DecodeToken } from '../../../services/Author/DecodeToken';
 
 @Component({
   selector: 'app-menu',
@@ -25,6 +29,8 @@ export class MenuComponent {
   
   constructor(
     private menuService: MenuService,
+    private cartService: CartService,
+    private decodedToken: DecodeToken
   ) {}
 
   ngOnInit(): void {
@@ -63,7 +69,25 @@ export class MenuComponent {
 
 
   addToCart(product: Product): void {
-    const localQuantity = this.quantities.get(product.productId) || 1;
-    console.log(`Added ${localQuantity} of ${product.name} to cart.`);
+    const quantities = this.quantities.get(product.productId) || 1;
+    const cart: Cart = {
+      userId: this.decodedToken.getPayload().userId,
+      productId: product.productId,
+      quantity: quantities,
+      totalBill: product.sellingPrice * quantities,
+    };
+
+    this.cartService.addCart(cart).subscribe({
+      next: (response) => {
+        if (response.success) {
+          console.log('Thêm vào giỏ hàng thành công!', response.message);
+        } else {
+          console.error('Thêm vào giỏ hàng thất bại:', response.message);
+        }
+      },
+      error: (err) => {
+        console.error('Lỗi khi thêm vào giỏ hàng:', err);
+      },
+    })
   }
 }
