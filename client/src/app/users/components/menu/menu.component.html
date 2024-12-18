@@ -21,7 +21,6 @@
     <div class="container">
         <div class="section-title">
             <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Menu & Pricing</h4>
-            <h1 class="display-4">Competitive Pricing</h1>
         </div>
         <div class="row">
           <div class="col-lg-4" *ngFor="let product of products">
@@ -30,12 +29,12 @@
                 <div mat-card-avatar class="example-header-image"></div>
                 <mat-card-title>{{ product.name }}</mat-card-title>
               </mat-card-header>
-              <img mat-card-image [src]="'http://localhost:3000/uploads/' + product.image" alt="Photo of a Shiba Inu">
+              <img mat-card-image [src]="'http://localhost:3000/uploads/' + product.image" alt="Photo of a Shiba Inu" style="height: 250px;">
               <mat-card-content style="margin-top: 10px;">
                   <p class="product-description">{{ product.description }}</p>
                   <p><strong>Giảm giá: </strong>{{ product.discount | number: '1.0-0'}}%</p>
                   <p><strong>Số lượng: </strong>{{ product.quantity }}</p>
-                  <p><strong>Giá bán: </strong>{{ product.sellingPrice | number: '1.0-0' }}VND</p>
+                  <p><strong>Giá bán: </strong>{{ product.sellingPrice | number: '1.0-0' }} VND</p>
               </mat-card-content>
               <mat-card-actions>
                 <div class="container"> 

@@ -18,10 +18,10 @@ class CartRepository {
         return result.insertId;
     }
 
-    async updateAsync(id ,cart) {
+    async updateAsync(cart) {
         await db.query('UPDATE tbl_cart SET userId = ?, productId = ?, quantity = ?, totalBill = ? WHERE cartId = ?', 
-            [cart.userId, cart.productId, cart.quantity, cart.totalBill, id]);
-        console.log(`Updated cart successfully with ID : [${id}]`);
+            [cart.userId, cart.productId, cart.quantity, cart.totalBill, cart.cartId]);
+        console.log(`Updated cart successfully with ID : [${cart.cartId}]`);
     }
 
     async deleteAsync(cart) {
@@ -29,9 +29,14 @@ class CartRepository {
         console.log(`Deleted cart successfully with ID : [${cart.cartId}]`);
     }
 
-    async findTotalCartAsync() {
-        const [rows] = await db.query('SELECT COUNT(*) as total FROM tbl_cart');
-        return rows[0].total;
+    async findCartByProductId(id) {
+        const [rows] = await db.query('SELECT * FROM tbl_cart WHERE productId = ?', [id]);
+        return rows[0];
+    }
+
+    async findProductyByIdInCartAsync(productId) {
+        const [rows] = await db.query('SELECT * FROM tbl_cart c JOIN tbl_product p ON c.productId = p.productId WHERE c.productId = ?', [productId]);
+        return rows[0];
     }
 }
 module.exports = new CartRepository();

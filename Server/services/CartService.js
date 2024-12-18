@@ -1,19 +1,26 @@
 const cartRepository = require("../repositories/CartRepository");
+const productRepository = require("../repositories/ProductRepository");
 
 class CartService {
     async addCartAsync(cart) {
-        return await cartRepository.addAsync(cart);
+        const existingProduct = await cartRepository.findProductyByIdInCartAsync(cart.productId);
+        if (existingProduct) {
+            await this.updateCartAsync(cart.productId, cart);
+        } else {
+            return await cartRepository.addAsync(cart);
+        }
     }
 
     async updateCartAsync(id, cart) {
-        let existingCart = await this.getCartByUserIdAsync(id);
+        let existingCart = await cartRepository.findCartByProductId(id);
+        existingCart.quantity = cart.quantity + existingCart.quantity;
 
-        existingCart.userId = cart.userId;
-        existingCart.productId = cart.productId;
-        existingCart.quantity = cart.quantity;
-        existingCart.totalBill = cart.totalBill;
+        const product = await productRepository.findByIdAsync(cart.productId);
+        if (!product)
+            throw new Error(`Product with ID [${cart.productId}] not found.`);
 
-        await cartRepository.updateAsync(id, existingCart);
+        existingCart.totalBill = existingCart.quantity * product.sellingPrice;
+        await cartRepository.updateAsync(existingCart);
     }
 
     async deleteCartAsync(id) {

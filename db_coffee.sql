@@ -94,7 +94,27 @@ ALTER TABLE tbl_cart
 ------ The foreign key of the 'tbl_user' references the 'roleId' column of the 'tbl_role'.
 ALTER TABLE tbl_user
     ADD CONSTRAINT FK_tbl_user_tbl_role FOREIGN KEY (roleId) REFERENCES tbl_role(roleId);
+    
+-- 4. INSERT INTO VIRTUAL DATA
 INSERT INTO tbl_role (roleId, name) VALUES (1, 'ROLE_ADMIN'), (2, 'ROLE_USER');
+
+INSERT INTO tbl_category (name) 
+VALUES
+('Cà phê'),
+('Trà'),
+('Sinh tố'),
+('Nước ép'),
+('Bánh ngọt');
+
+INSERT INTO tbl_product (categoryId, name, description, discount, image, quantity, sellingPrice)
+VALUES
+(1, 'Cà phê đen', 'Cà phê đen nguyên chất, đậm đà và thơm ngon', 0.10, 'ca-phe-den.jpg', 3, 20000),
+(1, 'Cà phê sữa', 'Kết hợp hoàn hảo giữa cà phê đậm và sữa đặc', 0.15, 'ca-phe-sua.jpg', 8, 25000),
+(2, 'Trà sữa trân châu', 'Trà sữa ngọt ngào với topping trân châu dai giòn', 0.05, 'tra-sua-tran-chau.jpg', 10, 30000),
+(4, 'Nước ép cam', 'Nước ép cam tươi nguyên chất, giàu vitamin C', 0.10, 'nuoc-ep-cam.jpg', 5, 35000),
+(5, 'Bánh Tiramisu', 'Bánh Tiramisu hảo hạng với vị béo ngậy của kem phô mai', 0.20, 'banh-tiramisu.jpg', 12, 40000);
+
+
 INSERT INTO tbl_user (roleId, username, password)
 VALUES
 (2, 'ThanhNguyen', 'password1'),
