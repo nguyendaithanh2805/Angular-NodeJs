@@ -9,6 +9,7 @@ const productRoute = require('./routes/ProductRoute');
 const cors = require('cors');
 const path = require('path');
 const cartRoute = require('./routes/CartRoute');
+const menuRoute = require('./routes/MenuRoute');
 
 app.use(express.json());
 
@@ -40,5 +41,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Cart
 app.use('/api', cartRoute);
+
+// Menu
+app.use('/api', menuRoute);
 
 module.exports = app;
