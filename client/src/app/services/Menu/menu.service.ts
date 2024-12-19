@@ -42,4 +42,29 @@ export class MenuService {
           map(response => response)
         );
     }
+
+      /*
+    GET: /api/menus{{id}}
+    response:
+      {
+        "success": true,
+        "message": "Product retrieved successfully with id 3.",
+        "data": {
+            "productId": 3,
+            "categoryId": 9,
+            "name": " Product",
+            "description": "This is a test product.",
+            "discount": "10.00",
+            "image": "sample-image-url.jpg",
+            "quantity": 100,
+            "sellingPrice": "200.00"
+        }
+      }
+  */
+  getProductById(productId: number): Observable<ApiResponse<Product>> {
+    return this.http.get<ApiResponse<Product>>(`${this.url}/${productId}`)
+      .pipe(
+        map(response => response)
+      );
+  }
 }

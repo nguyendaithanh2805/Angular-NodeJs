@@ -17,18 +17,27 @@ export class CartService {
     response:
       {
         "success": true,
-        "message": "Cart retrieved successfully with user id 21.",
-        "data": {
-            "cartId": 4,
-            "userId": 21,
-            "productId": 12,
-            "quantity": 2,
-            "totalBill": "29.98"
-        }
+        "message": "Carts retrieved successfully with user id undefined.",
+        "data": [
+            {
+                "cartId": 1,
+                "userId": 21,
+                "productId": 3,
+                "quantity": 6,
+                "totalBill": "180000.00"
+            },
+            {
+                "cartId": 2,
+                "userId": 21,
+                "productId": 2,
+                "quantity": 5,
+                "totalBill": "125000.00"
+            }
+        ]   
       }
   */
-  getCartByUserId(userId: number): Observable<ApiResponse<{cart: Cart}>> {
-    return this.http.get<ApiResponse<{cart: Cart}>>(`${this.url}/${userId}`)
+  getCartByUserId(userId: number): Observable<ApiResponse<Cart[]>> {
+    return this.http.get<ApiResponse<Cart[]>>(`${this.url}/${userId}`)
       .pipe(
         map(response => response)
       );

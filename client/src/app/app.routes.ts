@@ -13,6 +13,7 @@ import { CategoriesComponent } from './admins/components/categories/category-lis
 import { CategoryFormComponent } from './admins/components/categories/category-form/category-form.component';
 import { ProductListComponent } from './admins/components/products/product-list/product-list.component';
 import { ProductFormComponent } from './admins/components/products/product-form/product-form.component';
+import { ShoppingCartComponent } from './users/components/shopping-cart/shopping-cart.component';
 
 
 export const routes: Routes = [
@@ -27,6 +28,7 @@ export const routes: Routes = [
         { path: 'login', component: LoginComponent },
         { path: 'forbidden', component: ForbiddenComponent },
         { path: 'register', component: RegisterComponent },
+        { path: 'shopping-cart', component: ShoppingCartComponent },
       ]
     },
 
