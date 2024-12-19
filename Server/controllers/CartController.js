@@ -6,7 +6,7 @@ class CartController {
     async getCartByUserId(req, res) {
         try {
             const cart = await cartService.getCartByUserIdAsync(req.params.id);
-            res.status(200).json(new ApiResponse(true, `Cart retrieved successfully with user id ${cart.userId}.`, cart));
+            res.status(200).json(new ApiResponse(true, `Carts retrieved successfully with user id ${cart.userId}.`, cart));
         } catch (error) {
             res.status(404).json({ messgae: error.message });
         }

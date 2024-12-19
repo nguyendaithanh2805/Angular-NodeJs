@@ -8,7 +8,7 @@ class CartRepository {
 
     async findByUserIdAsync(id) {
         const [rows] = await db.query('SELECT * FROM tbl_cart WHERE userId = ?', [id]);
-        return rows[0];
+        return rows;
     }
 
     async addAsync(cart) {
