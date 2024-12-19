@@ -7,7 +7,7 @@ class CartRepository {
     }
 
     async findByUserIdAsync(id) {
-        const [rows] = await db.query('SELECT * FROM tbl_cart WHERE userId = ?', [id]);
+        const [rows] = await db.query('SELECT c.cartId, c.userId, c.productId, c.quantity, c.totalBill, p.name AS productName, p.image, p.sellingPrice, p.categoryId FROM tbl_cart AS c INNER JOIN tbl_product AS p ON c.productId = p.productId WHERE c.userId = ?', [id]);
         return rows;
     }
 

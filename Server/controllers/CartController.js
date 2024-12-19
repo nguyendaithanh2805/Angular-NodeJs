@@ -5,8 +5,12 @@ class CartController {
 
     async getCartByUserId(req, res) {
         try {
-            const cart = await cartService.getCartByUserIdAsync(req.params.id);
-            res.status(200).json(new ApiResponse(true, `Carts retrieved successfully with user id ${cart.userId}.`, cart));
+            const carts = await cartService.getCartByUserIdAsync(req.params.id);
+
+            if (!carts || carts.length === 0) 
+                return res.status(404).json(new ApiResponse(false, 'Không có sản phẩm nào trong giỏ hàng.', []));
+
+            res.status(200).json(new ApiResponse(true, `Carts retrieved successfully with user id ${req.params.id}.`, carts));
         } catch (error) {
             res.status(404).json({ messgae: error.message });
         }
