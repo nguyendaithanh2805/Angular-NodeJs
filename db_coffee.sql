@@ -21,11 +21,11 @@ CREATE TABLE tbl_product (
 );
 
 CREATE TABLE tbl_order (
-    orderId        	INT             NOT NULL,
+    orderId        	INT             NOT NULL AUTO_INCREMENT,
     paymentMethod   VARCHAR(255)    NOT NULL,
     userId     		INT             NOT NULL,
-    orderDate      	DATE            NOT NULL,
-    deliveryDate   	DATE            NOT NULL,
+    orderDate      	DATETIME        NOT NULL,
+    deliveryDate   	DATETIME        NOT NULL,
     status          BOOLEAN         NOT NULL ,
     address         VARCHAR(255)    NOT NULL,
     CONSTRAINT PK_tbl_order PRIMARY KEY (orderId)
@@ -62,6 +62,7 @@ CREATE TABLE tbl_user (
     password     VARCHAR(255)      NOT NULL,
     CONSTRAINT PK_tbl_user PRIMARY KEY (userId)
 );
+
 -- 3. RELATIONSHIP
 ---- FOREIGN KEY OF THE 'tbl_product'.
 ------ The foreign key of the 'tbl_product' references the 'categoryId' column of the 'tbl_category'.

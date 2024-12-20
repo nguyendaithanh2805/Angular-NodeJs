@@ -15,7 +15,7 @@ class OrderService {
     async addOrderAsync(order) {
         order.orderDate = await currentDateTime.getCurrentDateTime();
         order.deliveryDate = await currentDateTime.getDeliveryDate(order.orderDate);
-        
+        order.status = 0;
         return await orderRepository.addAsync(order);
     }
 
@@ -25,7 +25,7 @@ class OrderService {
         existingOrder.paymentMethod = order.paymentMethod;
         existingOrder.userId = order.userId;
         existingOrder.orderDate =  order.orderDate;
-        existingOrder.deliveryDate = order.deliveryDate;
+        existingOrder.deliveryDate = await currentDateTime.getDeliveryDate(existingOrder.orderDate);
         existingOrder.status = order.status;
         existingOrder.address = order.address;
         await orderRepository.updateAsync(id, existingOrder);
