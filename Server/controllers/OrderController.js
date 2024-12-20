@@ -38,7 +38,7 @@ class OrderController {
         }
     }
 
-    async deleteorder(req, res) {
+    async deleteOrder(req, res) {
         try {
             await orderService.deleteOrderAsync(req.params.id);
             res.status(204).send();

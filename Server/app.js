@@ -10,6 +10,7 @@ const cors = require('cors');
 const path = require('path');
 const cartRoute = require('./routes/CartRoute');
 const menuRoute = require('./routes/MenuRoute');
+const orderRoute = require('./routes/OrderRoute');
 
 app.use(express.json());
 
@@ -44,5 +45,8 @@ app.use('/api', menuRoute);
 
 // Cart
 app.use('/api', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRoleUser.bind(authorMiddle), cartRoute);
+
+// Order
+app.use('/api', orderRoute);
 
 module.exports = app;
