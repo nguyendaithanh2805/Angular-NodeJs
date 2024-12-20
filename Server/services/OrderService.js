@@ -1,5 +1,5 @@
 const orderRepository = require("../repositories/OrderRepository");
-
+const currentDateTime = require("../common/CurrentDateTime");
 class OrderService {
     async getAllOrderAsync() {
         return await orderRepository.findAllAsync();
@@ -13,6 +13,9 @@ class OrderService {
     }
 
     async addOrderAsync(order) {
+        order.orderDate = await currentDateTime.getCurrentDateTime();
+        order.deliveryDate = await currentDateTime.getDeliveryDate(order.orderDate);
+        
         return await orderRepository.addAsync(order);
     }
 
