@@ -13,14 +13,14 @@ class OrderRepository {
 
     async addAsync(order) {
         const [result] = await db.query('INSERT INTO tbl_order (paymentMethod, userId, orderDate, deliveryDate, status, address) VALUES (?, ?, ?, ?, ?, ?)', 
-            [order.orderId, order.userId, order.orderDate, order.deliveryDate, order.status, order.address]);
+            [order.paymentMethod, order.userId, order.orderDate, order.deliveryDate, order.status, order.address]);
         console.log(`Saved order successfully with ID : [${result.insertId}]`);
         return result.insertId;
     }
 
     async updateAsync(id, order) {
         await db.query('UPDATE tbl_order SET paymentMethod = ?, userId = ?, orderDate = ?, deliveryDate = ?, status = ?, address = ? WHERE orderId = ?', 
-            [order.orderId, order.userId, order.orderDate, order.deliveryDate, order.status, order.address, id]);
+            [order.paymentMethod, order.userId, order.orderDate, order.deliveryDate, order.status, order.address, id]);
         console.log(`Updated order successfully with ID : [${id}]`);
     }
 
