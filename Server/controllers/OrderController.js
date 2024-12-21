@@ -1,5 +1,5 @@
 const ApiResponse = require("../common/ApiResponse");
-const orderService = require("../services/orderService");
+const orderService = require("../services/OrderService");
 
 class OrderController {
     async getAllOrders(req, res) {

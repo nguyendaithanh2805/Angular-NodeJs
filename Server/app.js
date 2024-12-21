@@ -43,11 +43,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Menu
 app.use('/api', menuRoute);
 
-// Order
-app.use('/api', orderRoute);
 
 // Cart
 app.use('/api', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRoleUser.bind(authorMiddle), cartRoute);
 
+// Order
+app.use('/api', orderRoute);
 
 module.exports = app;
