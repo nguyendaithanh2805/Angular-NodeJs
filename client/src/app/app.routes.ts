@@ -14,6 +14,7 @@ import { CategoryFormComponent } from './admins/components/categories/category-f
 import { ProductListComponent } from './admins/components/products/product-list/product-list.component';
 import { ProductFormComponent } from './admins/components/products/product-form/product-form.component';
 import { ShoppingCartComponent } from './users/components/shopping-cart/shopping-cart.component';
+import { OrdersComponent } from './users/components/orders/orders.component';
 
 
 export const routes: Routes = [
@@ -29,6 +30,7 @@ export const routes: Routes = [
         { path: 'forbidden', component: ForbiddenComponent },
         { path: 'register', component: RegisterComponent },
         { path: 'shopping-cart', component: ShoppingCartComponent },
+        { path: 'order', component: OrdersComponent },
       ]
     },
 
