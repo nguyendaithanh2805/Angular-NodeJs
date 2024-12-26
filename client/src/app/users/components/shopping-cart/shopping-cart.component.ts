@@ -19,13 +19,13 @@ import { RouterLink } from '@angular/router';
   ]
 })
 export class ShoppingCartComponent  implements OnInit {
-  displayedColumns: string[] = ['productName', 'image', 'sellingPrice', 'quantity', 'totalBill'];
+  displayedColumns: string[] = ['productName', 'image', 'sellingPrice', 'quantity', 'totalBill', 'actions'];
   carts: any[] = [];
 
   constructor(
     private cartService: CartService, 
     private decodedToken: DecodeToken,
-    private menuService: MenuService
+    private menuService: MenuService,
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +38,13 @@ export class ShoppingCartComponent  implements OnInit {
         this.carts = response.data;
       else
         alert(response.message);
+    });
+  }
+
+  deleteCart(cartId: number): void {
+    this.cartService.deleteCart(cartId).subscribe(() => {
+      // Cập nhật lại giỏ hàng sau khi xóa
+      this.carts = this.carts.filter(cart => cart.cartId !== cartId);
     });
   }
 }

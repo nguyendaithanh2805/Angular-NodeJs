@@ -42,6 +42,13 @@
       <td mat-cell *matCellDef="let element"> {{ element.totalBill | number: '1.0-0' }} VND </td>
     </ng-container>
 
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Hành động </th>
+      <td mat-cell *matCellDef="let cart" class="mat">
+        <button (click)="deleteCart(cart.cartId)" class="btn btn-danger">Xóa</button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

@@ -63,5 +63,9 @@ export class CartService {
             body: response.body ?? null
         }))
     );
-}
+  }
+
+  deleteCart(cartId: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${cartId}`);
+  }
 }
