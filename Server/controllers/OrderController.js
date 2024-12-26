@@ -1,5 +1,6 @@
 const ApiResponse = require("../common/ApiResponse");
 const orderService = require("../services/OrderService");
+const cartService = require("../services/CartService");
 
 class OrderController {
     async getAllOrders(req, res) {
@@ -23,6 +24,10 @@ class OrderController {
     async addOrder(req, res) {
         try {
             const orderId = await orderService.addOrderAsync(req.body);
+
+              // Xử lý giỏ hàng và lưu các OrderDetail
+              await cartService.processCartToOrder(req.body.userId, orderId);
+
             res.status(201).json(new ApiResponse(true, 'Created order succesfully', { orderId: orderId }));
         } catch (error) {
             res.status(400).json({ message: error.message });

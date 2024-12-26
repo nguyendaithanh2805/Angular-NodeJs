@@ -34,8 +34,8 @@ class CartRepository {
         return rows[0];
     }
 
-    async findProductyByIdInCartAsync(productId) {
-        const [rows] = await db.query('SELECT * FROM tbl_cart c JOIN tbl_product p ON c.productId = p.productId WHERE c.productId = ?', [productId]);
+    async findProductInCartByUserIdAndProductIdAsync(userId, productId) {
+        const [rows] = await db.query('SELECT * FROM tbl_cart c JOIN tbl_product p ON c.productId = p.productId WHERE c.userId = ? AND p.productId = ?', [userId, productId]);
         return rows[0];
     }
 }

@@ -19,21 +19,14 @@ class CartController {
     async addCart(req, res) {
         try {
             const cartId = await cartService.addCartAsync(req.body);
-            res.status(201).json(new ApiResponse(true, 'Created cart succesfully', { cartId: cartId }));
+            if (cartId === 0)
+                return res.status(204).send();
+            return res.status(201).json(new ApiResponse(true, 'Created cart succesfully', { cartId: cartId }));
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
     }
-
-    async updateCart(req, res) {
-        try {
-            await cartService.updateCartAsync(req.params.id, req.body);
-            res.status(204).send();
-        } catch (error) {
-            res.status(404).json({ message: error.message });
-        }
-    }
-
+    
     async deleteCart(req, res) {
         try {
             await cartService.deleteCartAsync(req.params.id);
