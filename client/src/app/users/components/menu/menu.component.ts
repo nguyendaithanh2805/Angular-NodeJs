@@ -79,15 +79,22 @@ export class MenuComponent {
 
     this.cartService.addCart(cart).subscribe({
       next: (response) => {
-        if (response.success) {
-          console.log('Thêm vào giỏ hàng thành công!', response.message);
-        } else {
-          console.error('Thêm vào giỏ hàng thất bại:', response.message);
+        if (response.status === 204) {
+          console.log('No Content: Cart was updated successfully.');
+          alert('Cập nhật giỏ hàng thành công!');
+        } else if (response.body) {
+          console.log('Cart added successfully:', response.body);
+          alert('Thêm giỏ hàng thành công');
         }
       },
-      error: (err) => {
-        console.error('Lỗi khi thêm vào giỏ hàng:', err);
+      error: (error) => {
+        if (error.error && error.error.message) {
+          alert(error.error.message);
+        } else {
+          alert('Đã xảy ra lỗi khi thêm vào giỏ hàng!');
+        }
+        console.error('Error adding to cart:', error);
       },
-    })
+    }); 
   }
 }

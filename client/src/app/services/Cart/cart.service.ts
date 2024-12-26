@@ -54,7 +54,14 @@ export class CartService {
         }
       } 
   */
-  addCart(cart: Cart): Observable<ApiResponse<{cartId: number}>> {
-    return this.http.post<ApiResponse<{cartId: number}>>(`${this.url}`, cart);
-  }
+  addCart(cart: Cart): Observable<{ status: number; body: ApiResponse<{ cartId: number }> | null }> {
+    return this.http.post<ApiResponse<{ cartId: number }>>(`${this.url}`, cart, {
+        observe: 'response',
+    }).pipe(
+        map((response) => ({
+            status: response.status,
+            body: response.body ?? null
+        }))
+    );
+}
 }

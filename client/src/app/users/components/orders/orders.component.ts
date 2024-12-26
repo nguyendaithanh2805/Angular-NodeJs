@@ -5,9 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { OrderService } from '../../../services/Order/order.service';
 import { MatSelectModule } from '@angular/material/select';
+import { DecodeToken } from '../../../services/Author/DecodeToken';
 
 @Component({
   selector: 'app-orders',
@@ -37,16 +38,32 @@ export class OrdersComponent {
 
   paymentMethod = [
     { name: 'Thanh toán online' },
-    { name: 'Thanh toán trực tiếp' }
+    { name: 'Thanh toán khi nhận hàng' }
   ];
   
-  constructor(private fb: FormBuilder, private orderService: OrderService) {
+  constructor(
+    private fb: FormBuilder, 
+    private orderService: OrderService, 
+    private router: Router,
+    private decodedToken: DecodeToken
+  ) {
     this.orderForm = this.fb.group({
       paymentMethod: ['', Validators.required],
       address: ['', Validators.required]
     })
   }
-  onOrder(): void {
 
+  onOrder(): void {
+    const order = this.orderForm.value;
+    order.userId = this.decodedToken.getPayload().userId;
+    this.orderService.addOrders(order).subscribe({
+      next: () => {
+        alert('Đặt hàng thành công!');
+        this.router.navigate(['/menu']);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
   }
 }

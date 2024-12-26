@@ -5,20 +5,28 @@
     </div>
   </div>
   <!-- Page Header End -->
+<!-- Hiển thị khi giỏ hàng rỗng -->
+<div *ngIf="carts.length === 0" class="text-center mt-4">
+  <h3 class="text-danger">Giỏ hàng trống</h3>
+  <button class="btn btn-primary mt-5">
+      <a routerLink="/menu" class="text-white text-decoration-none">Tiếp tục mua hàng</a>
+  </button>
+</div>
 
+<div *ngIf="carts.length > 0">
   <table mat-table [dataSource]="carts" class="mat-elevation-z8">
     <ng-container matColumnDef="productName">
       <th mat-header-cell *matHeaderCellDef> Tên sản phẩm </th>
       <td mat-cell *matCellDef="let element"> {{ element.productName }} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef> Ảnh </th>
       <td mat-cell *matCellDef="let element">
         <img [src]="'http://localhost:3000/uploads/' + element.image" style="height: 80px; width: auto;">
       </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="sellingPrice">
       <th mat-header-cell *matHeaderCellDef> Giá bán </th>
       <td mat-cell *matCellDef="let element"> {{ element.sellingPrice | number: '1.0-0' }} VND </td>
@@ -33,7 +41,13 @@
       <th mat-header-cell *matHeaderCellDef> Tổng tiền </th>
       <td mat-cell *matCellDef="let element"> {{ element.totalBill | number: '1.0-0' }} VND </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+<div class="d-flex justify-content-center mt-4">
+  <button class="btn btn-success">
+      <a routerLink="/order" class="text-white text-decoration-none">Đặt hàng</a>
+  </button>
+</div>
+</div>

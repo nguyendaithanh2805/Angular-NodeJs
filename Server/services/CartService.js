@@ -19,10 +19,12 @@ class CartService {
 
     async updateCartAsync(id, cart) {
         let existingCart = await cartRepository.findCartByProductId(id);
-        existingCart.quantity = cart.quantity + existingCart.quantity;
-
         const product = await this.checkProduct(cart);
-
+        const totalQuantity = cart.quantity + existingCart.quantity;
+        if (totalQuantity > product.quantity) 
+            throw new Error(`Không thể thêm vào giỏ hàng vì tổng số lượng sản phẩm trong giỏ hàng là (${totalQuantity}) vượt quá số lượng sản phẩm hiện có (${product.quantity}).`);
+        
+        existingCart.quantity = totalQuantity;
         existingCart.totalBill = existingCart.quantity * product.sellingPrice;
         await cartRepository.updateAsync(existingCart);
     }
@@ -50,10 +52,11 @@ class CartService {
         const carts = await cartRepository.findByUserIdAsync(userId);
 
         for (const cart of carts) {
+            const product = await productRepository.findByIdAsync(cart.productId);
             const orderDetail = {
                 orderId: orderId,
                 productId: cart.productId,
-                discount: cart.discount || 0,
+                discount: product.discount,
                 quantity: cart.quantity,
                 totalBill: cart.totalBill
             };

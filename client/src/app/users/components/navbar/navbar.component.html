@@ -17,7 +17,7 @@
             <div class="navbar-nav ml-auto p-4">
                 <a routerLink="/home" routerLinkActive="active" class="nav-item nav-link active">Trang chủ</a>
                 <a routerLink="/menu" routerLinkActive="active" class="nav-item nav-link">Sản phẩm</a>
-                <a routerLink="/card" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping"></i></a>
+                <a routerLink="/shopping-cart" routerLinkActive="active" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping"></i></a>
                 <div class="nav-item">
                     <a *ngIf="isLoggedIn" (click)="logout()" class="btn btn-danger">Đăng xuất</a>
                     <a *ngIf="!isLoggedIn" [routerLink]="['/login']" class="btn btn-success">Đăng nhập</a>

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { Cart } from '../../../models/Cart';
 import { CartService } from '../../../services/Cart/cart.service';
 import { DecodeToken } from '../../../services/Author/DecodeToken';
 import { CommonModule } from '@angular/common';
 import { MenuService } from '../../../services/Menu/menu.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
   standalone: true,
-  imports: [MatTableModule, CommonModule],
+  imports: [MatTableModule, CommonModule, RouterLink],
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css',
     '/src/assets/users/css/style.min.css',
