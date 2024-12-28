@@ -26,7 +26,7 @@ class CartRepository {
 
     async deleteAsync(cart) {
         await db.query('DELETE FROM tbl_cart WHERE cartId = ?', [cart.cartId]);
-        console.log(`Deleted cart successfully with ID : [${cart.cartId}]`);
+        console.log(`Deleted cart successfully!`);
     }
 
     async findCartByProductId(id) {

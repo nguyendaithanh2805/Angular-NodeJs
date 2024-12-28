@@ -39,7 +39,7 @@
               <mat-card-actions>
                 <div class="container"> 
                   <div class="quantity">
-                    <div class="wrapper">
+                    <div class="wrapper" *ngIf="product.quantity > 0">
                       <!-- https://www.codingnepalweb.com/button-increment-decrement-number/ -->
                       <span class="minus" (click)="decrementQuantity(product.productId)">-</span>
                       <span class="num">{{ quantities.get(product.productId) }}</span>
@@ -49,13 +49,15 @@
                 </div>
               </mat-card-actions>
               <mat-card-actions class="add-to-card">
-                <button mat-button 
+                <button mat-button *ngIf="product.quantity > 0"
                         style="background-color: coral; border-radius: 25px; font-size: 20px;" 
                         (click)="addToCart(product)">
                   Thêm vào giỏ hàng
                 </button>
+                <span *ngIf="product.quantity <= 0" class="text-danger" >
+                  Hết hàng
+                </span>
               </mat-card-actions>
-              
               </mat-card>
           </div>
     </div>

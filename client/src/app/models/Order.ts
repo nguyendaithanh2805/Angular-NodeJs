@@ -3,6 +3,6 @@ export interface Order {
     userId: number,
     orderDate: Date,
     deliveryDate: Date,
-    status: boolean,
+    status: number,
     address: string
 }

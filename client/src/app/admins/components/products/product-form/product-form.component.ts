@@ -90,7 +90,12 @@ export class ProductFormComponent implements OnInit{
     Object.keys(productData).forEach((key) => {
       formData.append(key, productData[key]);
     });
-  
+
+    if (!this.imageFile && !this.isEdit) {
+      alert('Bạn cần tải lên ảnh trước khi thêm sản phẩm mới!');
+      return;
+    }
+
     if (this.imageFile) {
       formData.append('image', this.imageFile);
     }
@@ -102,17 +107,7 @@ export class ProductFormComponent implements OnInit{
           this.router.navigate(['/admin/product-list']);
         },
         error: (err) => {
-          if (err.error?.message?.includes("Data too long for column 'name'")) {
-            alert('Tên sản phẩm quá dài. Vui lòng nhập tên ngắn hơn.');
-          } else if (err.error?.message?.includes('Cannot read properties of undefined (reading \'filename\')')) {
-            alert('Không thể cập nhật vì chưa tải lên ảnh');
-          } else if (err.error?.message?.includes("Out of range value for column 'sellingPrice'")) {
-            alert('Giá bán vượt quá giới hạn cho phép. Vui lòng nhập giá trong phạm vi hợp lệ.');
-          }
-          else {
-            alert('Đã xảy ra lỗi khi cập nhật sản phẩm!');
-          }
-          console.error(err);
+          this.handleServerError(err);
         },
       });
     } else {
@@ -123,10 +118,23 @@ export class ProductFormComponent implements OnInit{
         },
         error: (err) => {
           this.errorMessage = 'Đã xảy ra lỗi khi thêm sản phẩm!';
-          console.error(err);
+          this.handleServerError(err);
         },
       });
     }
+  }
+  private handleServerError(err: any): void {
+    const message = err.error?.message || '';
+    if (message.includes("Data too long for column \'name\'")) {
+      alert('Tên sản phẩm quá dài. Vui lòng nhập tên ngắn hơn.');
+    } else if (message.includes('Cannot read properties of undefined (reading \'filename\')')) {
+      alert('Bạn chưa chọn hình ảnh hoặc tệp không hợp lệ.');
+    } else if (message.includes("Out of range value for column \'sellingPrice\'")) {
+      alert('Giá bán vượt quá giới hạn cho phép. Vui lòng nhập giá trong phạm vi hợp lệ.');
+    } else {
+      alert('Đã xảy ra lỗi khi thực hiện thao tác!');
+    }
+    console.error(err);
   }
   
   getProductById(productId: number): void {

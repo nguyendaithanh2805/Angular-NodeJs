@@ -33,8 +33,14 @@
       <h6>Quản lý danh sách sản phẩm</h6>
     </div>
   </div>
+  <div *ngIf="products.length === 0" class="text-center mt-4">
+    <h3 class="text-danger">Không có sản phẩm nào</h3>
+    <button class="btn btn-primary mt-2">
+        <a routerLink="/admin/add-product" class="text-white text-decoration-none">Thêm sản phẩm</a>
+    </button>
+  </div>
   
-  <div class="card">
+  <div class="card" *ngIf="products.length > 0">
     <div class="card-body">
       <div class="btn btn-success mb-3" routerLink="/admin/add-product">Thêm sản phẩm</div>
       <div *ngIf="errorMessage" class="error-message">

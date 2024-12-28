@@ -2,7 +2,7 @@ const db = require("../config/db");
 
 class OrderRepository {
     async findAllAsync() {
-        const [rows] = await db.query('SELECT * FROM tbl_order');
+        const [rows] = await db.query('SELECT *,  od.quantity AS order_quantity FROM tbl_order_detail od INNER JOIN tbl_order o ON od.orderId = o.orderId INNER JOIN tbl_product p ON od.productId = p.productId');
         return rows;
     }
 
@@ -19,8 +19,8 @@ class OrderRepository {
     }
 
     async updateAsync(id, order) {
-        await db.query('UPDATE tbl_order SET paymentMethod = ?, userId = ?, orderDate = ?, deliveryDate = ?, status = ?, address = ? WHERE orderId = ?', 
-            [order.paymentMethod, order.userId, order.orderDate, order.deliveryDate, order.status, order.address, id]);
+        await db.query('UPDATE tbl_order SET status = ? WHERE orderId = ? AND userId = ?', 
+            [order.status, id, order.userId]);
         console.log(`Updated order successfully with ID : [${id}]`);
     }
 

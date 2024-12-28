@@ -15,6 +15,7 @@ import { ProductListComponent } from './admins/components/products/product-list/
 import { ProductFormComponent } from './admins/components/products/product-form/product-form.component';
 import { ShoppingCartComponent } from './users/components/shopping-cart/shopping-cart.component';
 import { OrdersComponent } from './users/components/orders/orders.component';
+import { OrdersForAdminComponent } from './admins/components/orders-for-admin/orders-for-admin.component';
 
 
 export const routes: Routes = [
@@ -47,7 +48,8 @@ export const routes: Routes = [
         { path: 'add-category', component: CategoryFormComponent },
         { path: 'product-list', component: ProductListComponent },
         { path: 'add-product', component: ProductFormComponent },
-        { path: 'edit-product/:id', component: ProductFormComponent }
+        { path: 'edit-product/:id', component: ProductFormComponent }, 
+        { path: 'order-list', component: OrdersForAdminComponent }
       ]
     }
 ];

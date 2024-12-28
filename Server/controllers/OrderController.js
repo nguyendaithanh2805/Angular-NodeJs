@@ -6,7 +6,7 @@ class OrderController {
     async getAllOrders(req, res) {
         try {
             const orders = await orderService.getAllOrderAsync();
-            res.status(200).json(new ApiResponse(true, 'Orders retrieved successfully', orders ));
+            res.status(200).json(new ApiResponse(true, 'Orders retrieved successfully', {orders} ));
         } catch(error) {
             res.status(500).json({ message: 'Failed to retrieve Orders' });
         }
@@ -36,7 +36,7 @@ class OrderController {
 
     async updateOrder(req, res) {
         try {
-            await orderService.updateOrderAsync(req.params.id, req.body);
+            await orderService.updateOrderAsync(req.params.id, req.body.status);
             res.status(204).send();
         } catch (error) {
             res.status(404).json({ message: error.message });

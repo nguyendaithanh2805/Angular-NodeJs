@@ -19,15 +19,9 @@ class OrderService {
         return await orderRepository.addAsync(order);
     }
 
-    async updateOrderAsync(id, order) {
-        let existingOrder = await this.getOrderByIdAsync(id);
-        existingOrder.name = order.name;
-        existingOrder.paymentMethod = order.paymentMethod;
-        existingOrder.userId = order.userId;
-        existingOrder.orderDate =  order.orderDate;
-        existingOrder.deliveryDate = await currentDateTime.getDeliveryDate(existingOrder.orderDate);
-        existingOrder.status = order.status;
-        existingOrder.address = order.address;
+    async updateOrderAsync(id, status) {
+        let existingOrder = await this.getOrderByIdAsync(id);     
+        existingOrder.status = status;
         await orderRepository.updateAsync(id, existingOrder);
     }
 

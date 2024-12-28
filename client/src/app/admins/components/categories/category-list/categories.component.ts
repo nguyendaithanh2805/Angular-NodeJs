@@ -49,7 +49,11 @@ export class CategoriesComponent implements OnInit {
           });
         },
         error: (err) => {
-          alert('Có lỗi xảy ra khi xóa loại sản phẩm.');
+          if (err.error?.message?.includes("Cannot delete or update a parent row: a foreign key constraint fails (\`db_coffee\`.\`tbl_product\`, CONSTRAINT \`FK_tbl_product_tbl_category\` FOREIGN KEY (\`categoryId\`) REFERENCES \`tbl_category\` (\`categoryId\`))")) {
+            alert('Không thể xóa loại sản phẩm vì đã tồn tại sản phẩm. Vui lòng xóa sản phẩm trước.')
+          } else {
+            alert('Có lỗi xảy ra khi xóa loại sản phẩm.');
+          }
           console.error(err);
         }
       });

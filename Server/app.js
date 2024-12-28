@@ -11,13 +11,14 @@ const path = require('path');
 const cartRoute = require('./routes/CartRoute');
 const menuRoute = require('./routes/MenuRoute');
 const orderRoute = require('./routes/OrderRoute');
+const orderForAdminRoute = require('./routes/OrderForAdminRoute');
 
 app.use(express.json());
 
 // https://viblo.asia/p/cors-policies-and-security-in-nodejs-express-n1j4lxzj4wl
 app.use(cors({
     origin: 'http://localhost:4200',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
 }));
@@ -48,6 +49,7 @@ app.use('/api', menuRoute);
 app.use('/api', authMiddle.verifyToken.bind(authMiddle), authorMiddle.checkRoleUser.bind(authorMiddle), cartRoute);
 
 // Order
-app.use('/api', orderRoute);
+app.use('/api', authorMiddle.checkRoleUser.bind(authorMiddle), orderRoute);
+app.use('/api/admin', orderForAdminRoute);
 
 module.exports = app;
