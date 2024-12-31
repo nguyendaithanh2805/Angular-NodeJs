@@ -44,16 +44,8 @@ export class OrdersForAdminComponent {
             totalBill: parseFloat(order.totalBill.toString())
           }));
 
-        // Sắp xếp theo orderId
         this.orders.sort((a, b) => a.orderId - b.orderId);
 
-        // Gộp các đơn hàng trùng mã đơn hàng
-        const groupedOrders = this.groupOrdersById(this.orders);
-
-        // Cập nhật danh sách đơn hàng đã nhóm
-        this.orders = groupedOrders;
-
-        // Phân loại đơn hàng theo trạng thái
         this.pendingOrders = this.orders.filter(order => order.status === 0);
         this.approvedOrders = this.orders.filter(order => order.status === 1);
       },
@@ -64,40 +56,6 @@ export class OrdersForAdminComponent {
     });
   }
 
-    // Hàm nhóm các đơn hàng theo orderId
-    groupOrdersById(orders: Order[]): Order[] {
-      const groupedOrders: Order[] = [];
-  
-      let currentOrderId: number | null = null;
-      let currentOrder: Order = {} as Order;
-  
-      orders.forEach(order => {
-        if (currentOrderId !== order.orderId) {
-          if (currentOrderId !== null) {
-            // Thêm đơn hàng đã nhóm vào danh sách
-            groupedOrders.push(currentOrder);
-          }
-          // Tạo một đơn hàng mới để nhóm
-          currentOrder = { ...order };
-          currentOrderId = order.orderId;
-        } else {
-          // Cộng dồn số lượng và tổng hóa đơn nếu đơn hàng trùng mã
-          currentOrder.order_quantity += order.order_quantity;
-          currentOrder.totalBill += order.totalBill;
-          // Có thể gộp thông tin địa chỉ nếu cần
-          currentOrder.address += ', ' + order.address;  // Gộp địa chỉ
-        }
-      });
-  
-      // Thêm đơn hàng cuối cùng vào danh sách
-      if (currentOrderId !== null) {
-        groupedOrders.push(currentOrder);
-      }
-  
-      return groupedOrders;
-    }
-
-   // Hàm cập nhật trạng thái đơn hàng
    updateOrderStatus(orderId: number, status: number): void {
     this.orderService.updateOrderStatus(orderId, status).subscribe({
       next: () => {
