@@ -28,6 +28,13 @@
       font-size: 20px;
       text-align: center;
     }
+
+    .test {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      margin-bottom: 20px;
+    }
 </style>
 
 <div class="page-header">
@@ -107,7 +114,10 @@
 <!-- Hiển thị danh sách đơn hàng đã duyệt -->
 <div class="card" *ngIf="approvedOrders.length > 0">
   <div class="card-body">
-    <h5 class="card-title">Đơn hàng Đã duyệt</h5>
+    <div class="test">
+      <h5 class="card-title" style="font-size: 20px;">Đơn hàng Đã duyệt</h5>
+      <button (click)="exportOrdersToPDF()" class="btn btn-primary">Xuất PDF</button>
+    </div>
     <div class="table-responsive">
       <table mat-table [dataSource]="approvedOrders" class="mat-elevation-z8">
         <ng-container matColumnDef="orderId">

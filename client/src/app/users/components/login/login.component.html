@@ -19,8 +19,10 @@
     </div>
 </div>
 <!-- Page Header End -->
- 
 <div class="login-container">
+    <div class="mess mb-3">
+       <span class="text-danger" style="font-weight: bold;">** Chú thích dự phòng: Tài khoản người quản trị phải đăng ký với username là 'admin' **</span>
+    </div>
     <mat-card class="example-card" appearance="outlined" style="padding: 25px; margin-bottom: 20px;">
         <mat-card-title class="text-center mb-2">Đăng Nhập</mat-card-title>
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
