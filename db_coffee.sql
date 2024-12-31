@@ -72,16 +72,16 @@ ALTER TABLE tbl_product
 ---- FOREIGN KEY OF THE 'tbl_order_detail'.
 ------ The foreign key of the 'tbl_order_detail' references the 'orderId' column of the 'tbl_order'.
 ALTER TABLE tbl_order_detail
-    ADD CONSTRAINT FK_tbl_order_detail_tbl_oder FOREIGN KEY (orderId) REFERENCES tbl_order (orderId);
+    ADD CONSTRAINT FK_tbl_order_detail_tbl_oder FOREIGN KEY (orderId) REFERENCES tbl_order (orderId) ON DELETE CASCADE;
     
 ------ The foreign key of the 'tbl_order_detail' references the 'productId' column of the 'tbl_product'.
 ALTER TABLE tbl_order_detail
-    ADD CONSTRAINT FK_tbl_order_detail_tbl_product FOREIGN KEY (productId) REFERENCES tbl_product (productId);
+    ADD CONSTRAINT FK_tbl_order_detail_tbl_product FOREIGN KEY (productId) REFERENCES tbl_product (productId) ON DELETE CASCADE;
 
 ---- FOREIGN KEY OF THE 'tbl_order'.
 ------ The foreign key of the 'tbl_order' references the 'userId' column of the 'tbl_user '.
 ALTER TABLE tbl_order
-	ADD CONSTRAINT FK_order_user FOREIGN KEY (userId) REFERENCES tbl_user (userId);
+	ADD CONSTRAINT FK_order_user FOREIGN KEY (userId) REFERENCES tbl_user (userId) ON DELETE CASCADE;
 
 ---- FOREIGN KEY OF THE 'tbl_cart'.
 ------ The foreign key of the 'tbl_cart' references the 'userId' column of the 'tbl_customer'.
