@@ -138,7 +138,6 @@ VALUES
 (2, 'KienNguyen', 'password19'),
 (2, 'DuyTran', 'password20');
 
--- Chèn dữ liệu mẫu cho bảng tbl_order
 INSERT INTO tbl_order (paymentMethod, userId, orderDate, deliveryDate, status, address)
 VALUES
 ('Thanh toán khi nhận hàng', 1, '2024-12-30 10:00:00', '2024-12-30 12:00:00', 1, '123 Đường Chính, Hà Nội'),
@@ -162,27 +161,27 @@ VALUES
 ('Thanh toán khi nhận hàng', 9, '2024-12-31 18:00:00', '2024-12-31 20:00:00', 1, '606 Đường Chín, Hà Nội'),
 ('Thanh toán online', 10, '2024-12-31 19:00:00', '2024-12-31 21:00:00', 1, '707 Đường Mười, Hà Nội');
 
--- Chèn dữ liệu mẫu cho bảng tbl_order_detail (đảm bảo orderId và productId liên kết)
+
 INSERT INTO tbl_order_detail (productId, orderId, discount, quantity, totalBill)
 VALUES
-(1, 1, 10, 2, 40000),  -- Sản phẩm 1 (Cà phê đen) cho Đơn hàng 1
-(2, 1, 20, 1, 25000),  -- Sản phẩm 2 (Cà phê sữa) cho Đơn hàng 1
-(3, 2, 15, 1, 30000),  -- Sản phẩm 3 (Trà sữa trân châu) cho Đơn hàng 2
-(4, 2, 30, 2, 70000),  -- Sản phẩm 4 (Nước ép cam) cho Đơn hàng 2
-(5, 3, 12, 1, 40000),  -- Sản phẩm 5 (Bánh Tiramisu) cho Đơn hàng 3
-(1, 4, 10, 3, 60000),  -- Sản phẩm 1 (Cà phê đen) cho Đơn hàng 4
-(2, 4, 20, 2, 50000),  -- Sản phẩm 2 (Cà phê sữa) cho Đơn hàng 4
-(3, 5, 15, 1, 30000),  -- Sản phẩm 3 (Trà sữa trân châu) cho Đơn hàng 5
-(4, 5, 30, 1, 35000),  -- Sản phẩm 4 (Nước ép cam) cho Đơn hàng 5
-(5, 6, 12, 2, 80000),  -- Sản phẩm 5 (Bánh Tiramisu) cho Đơn hàng 6
-(1, 7, 10, 1, 20000),  -- Sản phẩm 1 (Cà phê đen) cho Đơn hàng 7
-(2, 7, 20, 3, 75000),  -- Sản phẩm 2 (Cà phê sữa) cho Đơn hàng 7
-(3, 8, 15, 2, 60000),  -- Sản phẩm 3 (Trà sữa trân châu) cho Đơn hàng 8
-(4, 8, 30, 1, 35000),  -- Sản phẩm 4 (Nước ép cam) cho Đơn hàng 8
-(5, 9, 12, 1, 40000),  -- Sản phẩm 5 (Bánh Tiramisu) cho Đơn hàng 9
-(1, 10, 10, 3, 60000),  -- Sản phẩm 1 (Cà phê đen) cho Đơn hàng 10
-(2, 10, 20, 1, 25000),  -- Sản phẩm 2 (Cà phê sữa) cho Đơn hàng 10
-(3, 11, 15, 2, 60000),  -- Sản phẩm 3 (Trà sữa trân châu) cho Đơn hàng 11
-(4, 11, 30, 1, 35000),  -- Sản phẩm 4 (Nước ép cam) cho Đơn hàng 11
-(5, 12, 12, 3, 120000);  -- Sản phẩm 5 (Bánh Tiramisu) cho Đơn hàng 12
+(1, 1, 10, 2, 40000),
+(2, 1, 20, 1, 25000),
+(3, 2, 15, 1, 30000),
+(4, 2, 30, 2, 70000),
+(5, 3, 12, 1, 40000),
+(1, 4, 10, 3, 60000),
+(2, 4, 20, 2, 50000),
+(3, 5, 15, 1, 30000),
+(4, 5, 30, 1, 35000),
+(5, 6, 12, 2, 80000),
+(1, 7, 10, 1, 20000),
+(2, 7, 20, 3, 75000),
+(3, 8, 15, 2, 60000),
+(4, 8, 30, 1, 35000),
+(5, 9, 12, 1, 40000),
+(1, 10, 10, 3, 60000),
+(2, 10, 20, 1, 25000),
+(3, 11, 15, 2, 60000),
+(4, 11, 30, 1, 35000),
+(5, 12, 12, 3, 120000);
 
