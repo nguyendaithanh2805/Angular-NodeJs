@@ -1,0 +1,29 @@
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+    h4 {
+        font-size: 25px;
+    }
+</style>
+<div class="text-center" style="margin-top: 100px;">
+    <h4 *ngIf="isEdit">Cập nhật loại sản phẩm</h4>
+    <h4 *ngIf="!isEdit">Tạo mới loại sản phẩm</h4>
+</div>
+<form [formGroup]="AddOrUpdateForm" (ngSubmit)="save()">
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Tên loại sản phẩm</mat-label>
+        <input matInput placeholder="Nhập tên loại sản phẩm" formControlName="name" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="AddOrUpdateForm.invalid">
+        Lưu
+    </button>
+    <button mat-raised-button color="warn" routerLink="/admin/category-list" style="margin-top: 25px;">
+        Hủy
+    </button>
+</form>

@@ -1,0 +1,76 @@
+<p>product-form works!</p>
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+
+    h4 {
+        font-size: 25px;
+    }
+
+    .image-show {
+        height: auto;
+    }
+    img {
+        width: 200px;
+        border: solid 1px;
+        margin-bottom: 20px;
+    }
+</style>
+<div class="text-center" style="margin-top: 100px;">
+    <h4 *ngIf="isEdit">Cập nhật sản phẩm</h4>
+    <h4 *ngIf="!isEdit">Tạo mới sản phẩm</h4>
+</div>
+<form [formGroup]="AddOrUpdateForm" (ngSubmit)="save()">
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Tên sản phẩm</mat-label>
+        <input matInput placeholder="Nhập tên sản phẩm" formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Mô tả sản phẩm</mat-label>
+        <textarea matInput placeholder="Nhập mô tả sản phẩm" formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Loại sản phẩm</mat-label>
+    <mat-select formControlName="categoryId">
+        <mat-option *ngFor="let category of categories" [value]="category.categoryId">
+        {{ category.name }}
+        </mat-option>
+    </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Giảm giá (%)</mat-label>
+        <input matInput type="number" placeholder="Nhập phần trăm giảm giá" formControlName="discount" />
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Số lượng</mat-label>
+    <input matInput type="number" placeholder="Nhập số lượng sản phẩm" formControlName="quantity" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Giá bán</mat-label>
+    <input matInput type="number" placeholder="Nhập giá bán" formControlName="sellingPrice" />
+    </mat-form-field>
+
+    <div class="image-show">
+        <img *ngIf="imageShow" [src]="imageShow" alt="Show" class="show-image" />
+    </div>
+    <input type="file" (change)="onFileSelected($event)" />
+
+    <div class="actions mt-3">
+        <button mat-raised-button color="primary" type="submit" [disabled]="AddOrUpdateForm.invalid">
+            Lưu
+        </button>
+        <button mat-raised-button color="warn" routerLink="/admin/product-list" style="margin-left: 10px;">
+            Hủy
+        </button>
+    </div>
+</form>

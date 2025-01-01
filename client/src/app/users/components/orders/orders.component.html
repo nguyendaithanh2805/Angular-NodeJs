@@ -1,0 +1,62 @@
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%; /* Đảm bảo form lấp đầy phần tử cha */
+    }
+    
+    mat-form-field {
+        width: 50%; /* Đặt chiều rộng của mat-form-field lấp đầy phần tử cha */
+        margin-bottom: 16px; /* Khoảng cách giữa các trường */
+    }
+    .example-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 position-relative overlay-bottom">
+    <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+        <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">ĐƠN HÀNG</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+ 
+<div class="login-container">
+    <mat-card class="example-card" appearance="outlined" style="padding: 25px; margin-bottom: 20px;">
+        <mat-card-title class="text-center mb-2">Thông tin đơn hàng</mat-card-title>
+        <form [formGroup]="orderForm" (ngSubmit)="onOrder()">
+
+           <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Phương thức thanh toán</mat-label>
+                <mat-select formControlName="paymentMethod">
+                    <mat-option *ngFor="let payment of paymentMethod" [value]="payment.name">
+                    {{ payment.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Địa chỉ</mat-label>
+                <input matInput type="text" placeholder="Nhập địa chỉ" formControlName="address" />
+            </mat-form-field>
+        
+            <button mat-raised-button color="primary" type="submit" [disabled]="orderForm.invalid">
+                Đặt hàng
+            </button>
+            <button mat-raised-button class="btn btn-success" routerLink="/menu" routerLinkActive="active" style="margin-top: 20px;">
+                Quay lại
+            </button>
+            </form>
+            <div *ngIf="errorMessage" class="error-message" style="color: red; margin-top: 10px; font-size: 20px;">
+                {{ errorMessage }}
+            </div>
+    </mat-card>
+</div>
+
+  

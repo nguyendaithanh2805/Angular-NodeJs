@@ -1,0 +1,175 @@
+<style>
+    tr, th, td {
+      border: solid 2px;
+      text-align: center;
+    }
+  
+    th {
+      background-color: #f4f4f4;
+      padding: 10px;
+    }
+  
+    td {
+      padding: 10px;
+    }
+  
+    .mat {
+      display: flex;
+      justify-content: space-evenly;
+      border: 0;
+    }
+  
+    .page-header {
+      margin-bottom: 20px;
+    }
+  
+    .error-message {
+      color: red;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .test {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      margin-bottom: 20px;
+    }
+</style>
+
+<div class="page-header">
+  <div class="page-title">
+    <h4>Order List</h4>
+    <h6>Manage your orders</h6>
+  </div>
+</div>
+
+<div *ngIf="orders.length === 0" class="text-center mt-4">
+  <h3 class="text-danger">Không có đơn hàng nào</h3>
+</div>
+
+<!-- Hiển thị danh sách đơn hàng chưa duyệt -->
+<div class="card" *ngIf="pendingOrders.length > 0">
+  <div class="card-body">
+    <h5 class="card-title" style="font-size: 20px;">Đơn hàng chờ duyệt</h5>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div class="table-responsive">
+      <table mat-table [dataSource]="pendingOrders" class="mat-elevation-z8">
+        <ng-container matColumnDef="orderId">
+          <th mat-header-cell *matHeaderCellDef> Mã đơn hàng </th>
+          <td mat-cell *matCellDef="let order"> {{ order.orderId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userId">
+          <th mat-header-cell *matHeaderCellDef> Mã người mua </th>
+          <td mat-cell *matCellDef="let order"> {{ order.userId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Tên sản phẩm </th>
+          <td mat-cell *matCellDef="let order"> {{ order.name }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order_quantity">
+          <th mat-header-cell *matHeaderCellDef> Số lượng mua </th>
+          <td mat-cell *matCellDef="let order"> {{ order.order_quantity }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalBill">
+          <th mat-header-cell *matHeaderCellDef> Tổng hóa đơn </th>
+          <td mat-cell *matCellDef="let order"> {{ order.totalBill | number: '1.0-0' }} VND </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderDate">
+          <th mat-header-cell *matHeaderCellDef> Ngày đặt hàng </th>
+          <td mat-cell *matCellDef="let order"> {{ order.orderDate |  date: 'dd/MM/yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deliveryDate">
+          <th mat-header-cell *matHeaderCellDef> Ngày giao hàng </th>
+          <td mat-cell *matCellDef="let order"> {{ order.deliveryDate |  date: 'dd/MM/yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef> Địa chỉ </th>
+          <td mat-cell *matCellDef="let order"> {{ order.address }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Trạng thái đơn </th>
+          <td mat-cell *matCellDef="let order">
+            <button *ngIf="order.status === 0" (click)="updateOrderStatus(order.orderId, 1)" class="btn btn-success">Duyệt đơn</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Hiển thị danh sách đơn hàng đã duyệt -->
+<div class="card" *ngIf="approvedOrders.length > 0">
+  <div class="card-body">
+    <div class="test">
+      <h5 class="card-title" style="font-size: 20px;">Đơn hàng Đã duyệt</h5>
+      <button (click)="exportOrdersToPDF()" class="btn btn-primary">Xuất PDF</button>
+    </div>
+    <div class="table-responsive">
+      <table mat-table [dataSource]="approvedOrders" class="mat-elevation-z8">
+        <ng-container matColumnDef="orderId">
+          <th mat-header-cell *matHeaderCellDef> Mã đơn hàng </th>
+          <td mat-cell *matCellDef="let order"> {{ order.orderId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userId">
+          <th mat-header-cell *matHeaderCellDef> Mã người mua </th>
+          <td mat-cell *matCellDef="let order"> {{ order.userId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Tên sản phẩm </th>
+          <td mat-cell *matCellDef="let order"> {{ order.name }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="order_quantity">
+          <th mat-header-cell *matHeaderCellDef> Số lượng mua </th>
+          <td mat-cell *matCellDef="let order"> {{ order.order_quantity }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalBill">
+          <th mat-header-cell *matHeaderCellDef> Tổng hóa đơn </th>
+          <td mat-cell *matCellDef="let order"> {{ order.totalBill | number: '1.0-0' }} VND </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderDate">
+          <th mat-header-cell *matHeaderCellDef> Ngày đặt hàng </th>
+          <td mat-cell *matCellDef="let order"> {{ order.orderDate |  date: 'dd/MM/yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deliveryDate">
+          <th mat-header-cell *matHeaderCellDef> Ngày giao hàng </th>
+          <td mat-cell *matCellDef="let order"> {{ order.deliveryDate |  date: 'dd/MM/yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef> Địa chỉ </th>
+          <td mat-cell *matCellDef="let order"> {{ order.address }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Trạng thái đơn </th>
+          <td mat-cell *matCellDef="let order">
+            <button *ngIf="order.status === 1" (click)="updateOrderStatus(order.orderId, 0)" class="btn btn-danger">Hủy phê duyệt</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</div>

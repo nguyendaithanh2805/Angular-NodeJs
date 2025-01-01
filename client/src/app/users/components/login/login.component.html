@@ -1,0 +1,52 @@
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+</style>
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 position-relative overlay-bottom">
+    <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
+        <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">ĐĂNG NHẬP</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+<div class="login-container">
+    <div class="mess mb-3">
+       <span class="text-danger" style="font-weight: bold;">** Chú thích dự phòng: Tài khoản người quản trị phải đăng ký với username là 'admin' **</span>
+    </div>
+    <mat-card class="example-card" appearance="outlined" style="padding: 25px; margin-bottom: 20px;">
+        <mat-card-title class="text-center mb-2">Đăng Nhập</mat-card-title>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Tên đăng nhập</mat-label>
+                <input matInput placeholder="Nhập tên đăng nhập" formControlName="username" />
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Mật khẩu</mat-label>
+                <input matInput type="password" placeholder="Nhập mật khẩu" formControlName="password" />
+            </mat-form-field>
+        
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+                Đăng Nhập
+            </button>
+            <button mat-raised-button class="btn btn-success" routerLink="/register" routerLinkActive="active" style="margin-top: 20px;">
+                Đăng Ký
+            </button>
+            </form>
+            <div *ngIf="errorMessage" class="error-message" style="color: red; margin-top: 10px; font-size: 20px;">
+                {{ errorMessage }}
+            </div>
+    </mat-card>
+</div>
+
+  
